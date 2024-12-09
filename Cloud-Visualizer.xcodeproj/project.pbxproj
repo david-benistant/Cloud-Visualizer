@@ -1,0 +1,546 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		63069BDA2D0781F3008ABB86 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63069BC02D0781F1008ABB86 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63069BC72D0781F1008ABB86;
+			remoteInfo = "Cloud-Visualizer";
+		};
+		63069BE42D0781F3008ABB86 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63069BC02D0781F1008ABB86 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63069BC72D0781F1008ABB86;
+			remoteInfo = "Cloud-Visualizer";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		63069BC82D0781F1008ABB86 /* Cloud-Visualizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cloud-Visualizer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63069BD92D0781F3008ABB86 /* Cloud-VisualizerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cloud-VisualizerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63069BE32D0781F3008ABB86 /* Cloud-VisualizerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cloud-VisualizerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		63069BCA2D0781F1008ABB86 /* Cloud-Visualizer */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Cloud-Visualizer";
+			sourceTree = "<group>";
+		};
+		63069BDC2D0781F3008ABB86 /* Cloud-VisualizerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Cloud-VisualizerTests";
+			sourceTree = "<group>";
+		};
+		63069BE62D0781F3008ABB86 /* Cloud-VisualizerUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Cloud-VisualizerUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		63069BC52D0781F1008ABB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63069BD62D0781F3008ABB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63069BE02D0781F3008ABB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		63069BBF2D0781F1008ABB86 = {
+			isa = PBXGroup;
+			children = (
+				63069BCA2D0781F1008ABB86 /* Cloud-Visualizer */,
+				63069BDC2D0781F3008ABB86 /* Cloud-VisualizerTests */,
+				63069BE62D0781F3008ABB86 /* Cloud-VisualizerUITests */,
+				63069BC92D0781F1008ABB86 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		63069BC92D0781F1008ABB86 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				63069BC82D0781F1008ABB86 /* Cloud-Visualizer.app */,
+				63069BD92D0781F3008ABB86 /* Cloud-VisualizerTests.xctest */,
+				63069BE32D0781F3008ABB86 /* Cloud-VisualizerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		63069BC72D0781F1008ABB86 /* Cloud-Visualizer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63069BED2D0781F3008ABB86 /* Build configuration list for PBXNativeTarget "Cloud-Visualizer" */;
+			buildPhases = (
+				63069BC42D0781F1008ABB86 /* Sources */,
+				63069BC52D0781F1008ABB86 /* Frameworks */,
+				63069BC62D0781F1008ABB86 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				63069BCA2D0781F1008ABB86 /* Cloud-Visualizer */,
+			);
+			name = "Cloud-Visualizer";
+			packageProductDependencies = (
+			);
+			productName = "Cloud-Visualizer";
+			productReference = 63069BC82D0781F1008ABB86 /* Cloud-Visualizer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		63069BD82D0781F3008ABB86 /* Cloud-VisualizerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63069BF02D0781F3008ABB86 /* Build configuration list for PBXNativeTarget "Cloud-VisualizerTests" */;
+			buildPhases = (
+				63069BD52D0781F3008ABB86 /* Sources */,
+				63069BD62D0781F3008ABB86 /* Frameworks */,
+				63069BD72D0781F3008ABB86 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				63069BDB2D0781F3008ABB86 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				63069BDC2D0781F3008ABB86 /* Cloud-VisualizerTests */,
+			);
+			name = "Cloud-VisualizerTests";
+			packageProductDependencies = (
+			);
+			productName = "Cloud-VisualizerTests";
+			productReference = 63069BD92D0781F3008ABB86 /* Cloud-VisualizerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		63069BE22D0781F3008ABB86 /* Cloud-VisualizerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63069BF32D0781F3008ABB86 /* Build configuration list for PBXNativeTarget "Cloud-VisualizerUITests" */;
+			buildPhases = (
+				63069BDF2D0781F3008ABB86 /* Sources */,
+				63069BE02D0781F3008ABB86 /* Frameworks */,
+				63069BE12D0781F3008ABB86 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				63069BE52D0781F3008ABB86 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				63069BE62D0781F3008ABB86 /* Cloud-VisualizerUITests */,
+			);
+			name = "Cloud-VisualizerUITests";
+			packageProductDependencies = (
+			);
+			productName = "Cloud-VisualizerUITests";
+			productReference = 63069BE32D0781F3008ABB86 /* Cloud-VisualizerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		63069BC02D0781F1008ABB86 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					63069BC72D0781F1008ABB86 = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					63069BD82D0781F3008ABB86 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 63069BC72D0781F1008ABB86;
+					};
+					63069BE22D0781F3008ABB86 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 63069BC72D0781F1008ABB86;
+					};
+				};
+			};
+			buildConfigurationList = 63069BC32D0781F1008ABB86 /* Build configuration list for PBXProject "Cloud-Visualizer" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 63069BBF2D0781F1008ABB86;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 63069BC92D0781F1008ABB86 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				63069BC72D0781F1008ABB86 /* Cloud-Visualizer */,
+				63069BD82D0781F3008ABB86 /* Cloud-VisualizerTests */,
+				63069BE22D0781F3008ABB86 /* Cloud-VisualizerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		63069BC62D0781F1008ABB86 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63069BD72D0781F3008ABB86 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63069BE12D0781F3008ABB86 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		63069BC42D0781F1008ABB86 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63069BD52D0781F3008ABB86 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63069BDF2D0781F3008ABB86 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		63069BDB2D0781F3008ABB86 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63069BC72D0781F1008ABB86 /* Cloud-Visualizer */;
+			targetProxy = 63069BDA2D0781F3008ABB86 /* PBXContainerItemProxy */;
+		};
+		63069BE52D0781F3008ABB86 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63069BC72D0781F1008ABB86 /* Cloud-Visualizer */;
+			targetProxy = 63069BE42D0781F3008ABB86 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		63069BEB2D0781F3008ABB86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		63069BEC2D0781F3008ABB86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		63069BEE2D0781F3008ABB86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Cloud-Visualizer/Cloud_Visualizer.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cloud-Visualizer/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "david-benistant.Cloud-Visualizer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		63069BEF2D0781F3008ABB86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Cloud-Visualizer/Cloud_Visualizer.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cloud-Visualizer/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "david-benistant.Cloud-Visualizer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		63069BF12D0781F3008ABB86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "david-benistant.Cloud-VisualizerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cloud-Visualizer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cloud-Visualizer";
+			};
+			name = Debug;
+		};
+		63069BF22D0781F3008ABB86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "david-benistant.Cloud-VisualizerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cloud-Visualizer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cloud-Visualizer";
+			};
+			name = Release;
+		};
+		63069BF42D0781F3008ABB86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "david-benistant.Cloud-VisualizerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Cloud-Visualizer";
+			};
+			name = Debug;
+		};
+		63069BF52D0781F3008ABB86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "david-benistant.Cloud-VisualizerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Cloud-Visualizer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		63069BC32D0781F1008ABB86 /* Build configuration list for PBXProject "Cloud-Visualizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63069BEB2D0781F3008ABB86 /* Debug */,
+				63069BEC2D0781F3008ABB86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63069BED2D0781F3008ABB86 /* Build configuration list for PBXNativeTarget "Cloud-Visualizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63069BEE2D0781F3008ABB86 /* Debug */,
+				63069BEF2D0781F3008ABB86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63069BF02D0781F3008ABB86 /* Build configuration list for PBXNativeTarget "Cloud-VisualizerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63069BF12D0781F3008ABB86 /* Debug */,
+				63069BF22D0781F3008ABB86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63069BF32D0781F3008ABB86 /* Build configuration list for PBXNativeTarget "Cloud-VisualizerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63069BF42D0781F3008ABB86 /* Debug */,
+				63069BF52D0781F3008ABB86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 63069BC02D0781F1008ABB86 /* Project object */;
+}
