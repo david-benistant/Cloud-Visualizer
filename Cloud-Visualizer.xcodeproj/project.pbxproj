@@ -6,6 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		637736412D0D3E560028DEAE /* AWSSDKHTTPAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 637736402D0D3E560028DEAE /* AWSSDKHTTPAuth */; };
+		637736432D0D3EA60028DEAE /* AWSSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 637736422D0D3EA60028DEAE /* AWSSDKCommon */; };
+		637736452D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 637736442D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth */; };
+		637736472D0D3EB60028DEAE /* AWSSDKChecksums in Frameworks */ = {isa = PBXBuildFile; productRef = 637736462D0D3EB60028DEAE /* AWSSDKChecksums */; };
+		63E296742D0BAD5700CDAC5D /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 63E296732D0BAD5700CDAC5D /* AWSS3 */; };
+		63E296762D0BAFC400CDAC5D /* AWSClientRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 63E296752D0BAFC400CDAC5D /* AWSClientRuntime */; };
+		63E296842D0BB36A00CDAC5D /* AWSSDKIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 63E296832D0BB36A00CDAC5D /* AWSSDKIdentity */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		63069BDA2D0781F3008ABB86 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +39,22 @@
 		63069BE32D0781F3008ABB86 /* Cloud-VisualizerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cloud-VisualizerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		63CF8B252D0D2F6C0026E06B /* Exceptions for "Cloud-Visualizer" folder in "Cloud-Visualizer" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 63069BC72D0781F1008ABB86 /* Cloud-Visualizer */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		63069BCA2D0781F1008ABB86 /* Cloud-Visualizer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				63CF8B252D0D2F6C0026E06B /* Exceptions for "Cloud-Visualizer" folder in "Cloud-Visualizer" target */,
+			);
 			path = "Cloud-Visualizer";
 			sourceTree = "<group>";
 		};
@@ -52,6 +75,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63E296762D0BAFC400CDAC5D /* AWSClientRuntime in Frameworks */,
+				637736472D0D3EB60028DEAE /* AWSSDKChecksums in Frameworks */,
+				637736412D0D3E560028DEAE /* AWSSDKHTTPAuth in Frameworks */,
+				63E296842D0BB36A00CDAC5D /* AWSSDKIdentity in Frameworks */,
+				63E296742D0BAD5700CDAC5D /* AWSS3 in Frameworks */,
+				637736452D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth in Frameworks */,
+				637736432D0D3EA60028DEAE /* AWSSDKCommon in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +108,7 @@
 				63069BCA2D0781F1008ABB86 /* Cloud-Visualizer */,
 				63069BDC2D0781F3008ABB86 /* Cloud-VisualizerTests */,
 				63069BE62D0781F3008ABB86 /* Cloud-VisualizerUITests */,
+				6379F7BE2D0B9F9E00B53C69 /* Frameworks */,
 				63069BC92D0781F1008ABB86 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +121,13 @@
 				63069BE32D0781F3008ABB86 /* Cloud-VisualizerUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6379F7BE2D0B9F9E00B53C69 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +150,13 @@
 			);
 			name = "Cloud-Visualizer";
 			packageProductDependencies = (
+				63E296732D0BAD5700CDAC5D /* AWSS3 */,
+				63E296752D0BAFC400CDAC5D /* AWSClientRuntime */,
+				63E296832D0BB36A00CDAC5D /* AWSSDKIdentity */,
+				637736402D0D3E560028DEAE /* AWSSDKHTTPAuth */,
+				637736422D0D3EA60028DEAE /* AWSSDKCommon */,
+				637736442D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth */,
+				637736462D0D3EB60028DEAE /* AWSSDKChecksums */,
 			);
 			productName = "Cloud-Visualizer";
 			productReference = 63069BC82D0781F1008ABB86 /* Cloud-Visualizer.app */;
@@ -170,6 +215,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
@@ -195,6 +243,9 @@
 			);
 			mainGroup = 63069BBF2D0781F1008ABB86;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 63069BC92D0781F1008ABB86 /* Products */;
 			projectDirPath = "";
@@ -397,9 +448,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cloud-Visualizer/Preview Content\"";
+				DEVELOPMENT_TEAM = JZ669W3RJ7;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Cloud-Visualizer/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				"INFOPLIST_KEY_NSHumanReadableCopyright[sdk=*]" = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -419,11 +475,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Cloud-Visualizer/Cloud_Visualizer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cloud-Visualizer/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=*]" = JZ669W3RJ7;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Cloud-Visualizer/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -432,6 +494,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "david-benistant.Cloud-Visualizer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -541,6 +604,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../.swiftPackages/aws-sdk-swift";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		637736402D0D3E560028DEAE /* AWSSDKHTTPAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			productName = AWSSDKHTTPAuth;
+		};
+		637736422D0D3EA60028DEAE /* AWSSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			productName = AWSSDKCommon;
+		};
+		637736442D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			productName = AWSSDKEventStreamsAuth;
+		};
+		637736462D0D3EB60028DEAE /* AWSSDKChecksums */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			productName = AWSSDKChecksums;
+		};
+		63E296732D0BAD5700CDAC5D /* AWSS3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			productName = AWSS3;
+		};
+		63E296752D0BAFC400CDAC5D /* AWSClientRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			productName = AWSClientRuntime;
+		};
+		63E296832D0BB36A00CDAC5D /* AWSSDKIdentity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			productName = AWSSDKIdentity;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 63069BC02D0781F1008ABB86 /* Project object */;
 }
