@@ -4,8 +4,8 @@ import AWSS3
 
 
 fileprivate let tableConfig: [TableConfigItem] = [
-    TableConfigItem(label: "Name", type: .text),
-    TableConfigItem(label: "Region", type: .text, maxWidth: 100),
+    TableConfigItem(label: "Name", type: .string),
+    TableConfigItem(label: "Region", type: .string, maxWidth: 100),
     TableConfigItem(label: "Creation Date", type: .date, alignment: .trailing),
     ]
 
@@ -88,8 +88,8 @@ struct S3Table: View {
     }
     
     private func searchFunction(item: TableItem, search: String) -> Bool {
-        let bucket = item.additional as? S3ClientTypes.Bucket
-        if bucket != nil, let name = bucket?.name {
+        let bucket = item.additional as? S3BucketWrapper
+        if bucket != nil, let name = bucket?.bucket.name {
             return name.contains(search)
         }
         return false
@@ -138,6 +138,23 @@ struct S3Table: View {
         }
         .sheet(isPresented: $isClearModalOpen) {
             ConfirmModal(isOpen: $isClearModalOpen, onConfirm: applyClearContents)
+        }
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button(action: {
+                    if let client = s3Client {
+                        Task {
+                            if let bucketList = await listBuckets(using: client) {
+                                tableItems.items = (await wrapBucketList(bucketList, client: client)).map { item in
+                                    return actionFunction(item, s3Client: client);
+                                }
+                            }
+                        }
+                    }
+                }) {
+                    Image(systemName: "arrow.trianglehead.clockwise")
+                }
+            }
         }
     }
 }

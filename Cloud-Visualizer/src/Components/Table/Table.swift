@@ -6,9 +6,23 @@ fileprivate struct TableField: View {
     let item: TableFieldItem
     let index: Int
     
+    private func formatBytes(_ bytes: Int) -> String {
+        let units = ["B", "KB", "MB", "GB", "TB"]
+        var size = Double(bytes)
+        var unitIndex = 0
+
+        while size >= 1000 && unitIndex < units.count - 1 {
+            size /= 1000
+            unitIndex += 1
+        }
+
+        let formattedSize = String(format: size.truncatingRemainder(dividingBy: 1) == 0 ? "%.0f" : "%.1f", size)
+        return "\(formattedSize) \(units[unitIndex])"
+    }
+    
     var body: some View {
-        if (config.type == .text) {
-            let str = (item.value as? String) ?? "bad format";
+        if (config.type == .string) {
+            let str = (item.value as? String) ?? "-";
             Text(str)
                 .lineLimit(1)
                 .truncationMode(.tail)
@@ -17,13 +31,43 @@ fileprivate struct TableField: View {
         }
         if (config.type == .date) {
             let date = (item.value as? Date);
-            let dateStr = date != nil ? DateFormat.string(from: date!) : "bad format";
-            Text(dateStr)
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .layoutPriority(Double(index))
-                .frame(minWidth: config.minWidth, maxWidth: (config.maxWidth ?? .infinity), alignment: config.alignment)
+            
+            if (date != nil) {
+                let dateStr = date != nil ? DateFormat.string(from: date!) : "-";
+                Text(dateStr)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .layoutPriority(Double(index))
+                    .frame(minWidth: config.minWidth, maxWidth: (config.maxWidth ?? .infinity), alignment: config.alignment)
+            } else {
+                Text("-")
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .layoutPriority(Double(index))
+                    .frame(minWidth: config.minWidth, maxWidth: (config.maxWidth ?? .infinity), alignment: config.alignment)
+            }
+            
         }
+        
+        if (config.type == .size) {
+            let size = (item.value as? Int);
+            if (size != nil) {
+                let strBytes = formatBytes(size!)
+                Text(strBytes)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .layoutPriority(Double(index))
+                    .frame(minWidth: config.minWidth, maxWidth: (config.maxWidth ?? .infinity), alignment: config.alignment)
+            } else {
+                Text("-")
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .layoutPriority(Double(index))
+                    .frame(minWidth: config.minWidth, maxWidth: (config.maxWidth ?? .infinity), alignment: config.alignment)
+            }
+            
+        }
+        
     }
 }
 
@@ -48,9 +92,7 @@ fileprivate struct TableLine: View {
     var body: some View {
         HStack (spacing: 0) {
             ForEach(Array(line.fields.enumerated()), id: \.element.hashValue) { (index, item) in
-                
                 TableField(config: items.tableConfig[index], item: item, index: index)
-                    .frame(maxWidth: .infinity)
                 if (item.id != line.fields.last?.id) {
                     Spacer()
                 }

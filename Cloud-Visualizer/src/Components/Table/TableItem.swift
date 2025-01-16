@@ -2,13 +2,14 @@ import SwiftUI
 import AWSS3
 
 enum FieldTypes: String {
-    case date = "date"
-    case text = "text"
+    case date
+    case string
+    case size
 }
 
 struct TableFieldItem: Hashable, Identifiable, Equatable {
     private let _id: UUID = UUID()
-    var value: Any
+    var value: Any? = nil
     
     
     static func ==(lhs: TableFieldItem, rhs: TableFieldItem) -> Bool {

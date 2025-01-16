@@ -18,7 +18,7 @@ fileprivate func nonBinaryTypes(_ data: Data) -> MimeType {
         return .unknown
     }
     
-    if content.contains("<svg") {
+    if content.starts(with: "<svg") {
         return .svg
     } else if content.contains("<html") || content.contains("<!DOCTYPE html>") || content.contains("<div") || content.contains("<span") {
         return .html

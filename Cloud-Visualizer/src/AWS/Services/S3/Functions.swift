@@ -126,9 +126,13 @@ func wrapObjectsList(_ objectList: ListObjectsV2Output, path: String) ->  [Table
             } else {
                 key = "Unnamed folder"
             }
+            
             output.append(TableItem(
                 fields: [
-                    TableFieldItem(value: key!)
+                    TableFieldItem(value: key!),
+                    TableFieldItem(),
+                    TableFieldItem(),
+                    TableFieldItem()
                 ],
                 additional: folder
             ))
@@ -146,9 +150,15 @@ func wrapObjectsList(_ objectList: ListObjectsV2Output, path: String) ->  [Table
             } else {
                 key = "Unnamed object"
             }
+            let storageClass = obj.storageClass?.rawValue ?? "-"
+            
             output.append(TableItem(
                 fields: [
-                    TableFieldItem(value: key!)
+                    TableFieldItem(value: key!),
+                    TableFieldItem(value: obj.size),
+                    TableFieldItem(value: storageClass.prefix(1).uppercased() + storageClass.dropFirst().lowercased()),
+                    TableFieldItem(value: obj.lastModified)
+//                    TableFieldItem(value: "Folder")
                 ],
                 additional: obj
             ))

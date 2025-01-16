@@ -4,7 +4,10 @@ import UniformTypeIdentifiers
 
 
 fileprivate let tableConfig: [TableConfigItem] = [
-    TableConfigItem(label: "Key", type: .text),
+    TableConfigItem(label: "Key", type: .string),
+    TableConfigItem(label: "Size", type: .size, maxWidth: 100),
+    TableConfigItem(label: "Storage class", type: .string),
+    TableConfigItem(label: "Last modified", type: .date, alignment: .trailing),
 ]
 
 struct S3Content: View {
@@ -68,18 +71,8 @@ struct S3Content: View {
         return !tableItems.items.contains { $0.isSelected && $0.additional as AnyObject is S3ClientTypes.Object }
     }
     
-    private func searchFunction(item: TableItem, search: String) -> Bool {
-        if let folder = item.additional as? S3ClientTypes.CommonPrefix {
-            if let prefix = folder.prefix {
-                return prefix.contains(search)
-            }
-        } else if let obj = item.additional as? S3ClientTypes.Object {
-            if let key = obj.key {
-                return key.contains(search)
-            }
-        }
-        return false
-    }
+    
+    //--Sidebar buttons actions--//
     
     private func applyDelete() async -> Void {
         do {
@@ -158,33 +151,20 @@ struct S3Content: View {
     }
     
     
-
-    var body: some View {
-        Table(tableItems: tableItems, sideBarItems: sideBarItems, searchBarFunction: searchFunction)
-            .border(isHighlighted ? .white : .clear)
-            .onAppear() {
-                loadContent()
+    private func searchFunction(item: TableItem, search: String) -> Bool {
+        if let folder = item.additional as? S3ClientTypes.CommonPrefix {
+            if let prefix = folder.prefix {
+                return prefix.contains(search)
             }
-            .onChange(of: path) {
-                loadContent()
+        } else if let obj = item.additional as? S3ClientTypes.Object {
+            if let key = obj.key {
+                return key.contains(search)
             }
-            .onDrop(of: [UTType.fileURL], isTargeted: $isHighlighted) { providers in
-                handleDrop(providers: providers)
-            }
-            .sheet(isPresented: $isCreateModalOpen) {
-                CreateS3Content(isOpen: $isCreateModalOpen, s3Client: s3Client, bucket: bucket, path: path, uploadFilesFunction: uploadFiles, tableItems: $tableItems.items)
-            }
-            .sheet(isPresented: $isDeleteModalOpen) {
-                ConfirmModal(isOpen: $isDeleteModalOpen, onConfirm: applyDelete)
-            }
-            .sheet(isPresented: $isClearModalOpen) {
-                ConfirmModal(isOpen: $isClearModalOpen, onConfirm: applyClearContents)
-            }
-            .sheet(isPresented: $isSelectViewerOpen) {
-                SelectViewer(isOpen: $isSelectViewerOpen, callback: selectViewerCallback)
-            }
+        }
+        return false
     }
     
+    //-- items loading --//
     
     private func loadContent() {
         Task {
@@ -198,6 +178,8 @@ struct S3Content: View {
             }
         }
     }
+    
+    //-- items actions --//
     
     private func selectViewerCallback(_ viewer: Viewer) {
         if let data = viewerData {
@@ -215,9 +197,6 @@ struct S3Content: View {
             case .html:
                 let htmlView = HtmlViewer(htmlData: data.0)
                 htmlView.open(title: data.1)
-                
-            default:
-                print("error")
             }
         }
     }
@@ -258,7 +237,7 @@ struct S3Content: View {
                                         image.open(title: label)
                                     case .webp:
                                         let image = ImageViewer(imageData: data)
-                                        image.open(title: label)    
+                                        image.open(title: label)
                                     case .html:
                                         let htmlView = HtmlViewer(htmlData: data)
                                         htmlView.open(title: label)
@@ -273,7 +252,7 @@ struct S3Content: View {
                                     }
                                     print()
                                 }
-
+                                
                             }
                         } catch {
                             print("error while displaying content :", error)
@@ -286,7 +265,9 @@ struct S3Content: View {
         }
         return item;
     }
-
+    
+    //-- files drop functions --//
+    
     private func handleDrop(providers: [NSItemProvider]) -> Bool {
         for provider in providers {
             if provider.hasItemConformingToTypeIdentifier(UTType.fileURL.identifier) {
@@ -302,6 +283,20 @@ struct S3Content: View {
             }
         }
         return true
+    }
+    
+    private func explore(url: URL) -> [URL] {
+        var out: [URL] = []
+        out.append(url)
+        if (url.hasDirectoryPath) {
+            let fileManager = FileManager.default
+            if let enumerator = fileManager.enumerator(at: url, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles]) {
+                for case let fileURL as URL in enumerator {
+                    out.append(fileURL)
+                }
+            }
+        }
+        return out
     }
     
     private func uploadFiles(urls: [URL]) {
@@ -328,20 +323,6 @@ struct S3Content: View {
         }
     }
     
-    private func explore(url: URL) -> [URL] {
-        var out: [URL] = []
-        out.append(url)
-        if (url.hasDirectoryPath) {
-            let fileManager = FileManager.default
-            if let enumerator = fileManager.enumerator(at: url, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles]) {
-                for case let fileURL as URL in enumerator {
-                    out.append(fileURL)
-                }
-            }
-        }
-        return out
-    }
-
     private func createDroppedFolder(key: String, relativePath: String) async {
         do {
             var sanitized = key
@@ -387,5 +368,42 @@ struct S3Content: View {
         } catch _ {
             print("an error occured while creating file")
         }
+    }
+    
+    //-- body --//
+    
+    var body: some View {
+        Table(tableItems: tableItems, sideBarItems: sideBarItems, searchBarFunction: searchFunction)
+            .border(isHighlighted ? .white : .clear)
+            .onAppear() {
+                loadContent()
+            }
+            .onChange(of: path) {
+                loadContent()
+            }
+            .onDrop(of: [UTType.fileURL], isTargeted: $isHighlighted) { providers in
+                handleDrop(providers: providers)
+            }
+            .sheet(isPresented: $isCreateModalOpen) {
+                CreateS3Content(isOpen: $isCreateModalOpen, s3Client: s3Client, bucket: bucket, path: path, uploadFilesFunction: uploadFiles, tableItems: $tableItems.items)
+            }
+            .sheet(isPresented: $isDeleteModalOpen) {
+                ConfirmModal(isOpen: $isDeleteModalOpen, onConfirm: applyDelete)
+            }
+            .sheet(isPresented: $isClearModalOpen) {
+                ConfirmModal(isOpen: $isClearModalOpen, onConfirm: applyClearContents)
+            }
+            .sheet(isPresented: $isSelectViewerOpen) {
+                SelectViewer(isOpen: $isSelectViewerOpen, callback: selectViewerCallback)
+            }
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button(action: {
+                        loadContent()
+                    }) {
+                        Image(systemName: "arrow.trianglehead.clockwise")
+                    }
+                }
+            }
     }
 }
