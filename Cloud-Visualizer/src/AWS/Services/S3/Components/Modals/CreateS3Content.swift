@@ -1,4 +1,3 @@
-
 import SwiftUI
 import AWSS3
 import UniformTypeIdentifiers
@@ -10,31 +9,26 @@ struct CreateS3Content: View {
     let s3Client: S3ClientWrapper
     let bucket: S3BucketWrapper
     let path: String
-    
+
     let uploadFilesFunction: ([URL]) -> Void
-    
+
     @State var folderName: String = ""
     @State var errorMessage: String?
-    
+
     @State var selectedOption: String = "folder"
-    @Binding var tableItems: [TableItem]
-    
+    @Binding var tableItems: [TableLine]
+
     @State private var files: [FilesModel] = []
-    
-    
+
     private func isDisabled() -> Bool {
-        
-        if (selectedOption == "folder") {
+
+        if selectedOption == "folder" {
             return folderName.isEmpty
         } else {
             return files.isEmpty
         }
     }
-    
-    
-    
-    
-    
+
     var body: some View {
         VStack {
             ModalHeader(title: "Add object", errorMessage: $errorMessage)
@@ -42,34 +36,34 @@ struct CreateS3Content: View {
 
             Picker("", selection: $selectedOption) {
                 Text("Folder").tag("folder")
-                
+
                 Text("File").tag("file")
             }
             .pickerStyle(.palette)
-            
+
             Spacer()
-            
-            if (selectedOption == "folder") {
-                TextInput(label: "Folder Name", disabled: false ,field: $folderName)
+
+            if selectedOption == "folder" {
+                TextInput(label: "Folder Name", disabled: false, field: $folderName)
             }
-            
-            if (selectedOption == "file") {
+
+            if selectedOption == "file" {
                 VStack {
-                    HStack{
+                    HStack {
                         FileExplorer(files: $files, canChooseFiles: true, canChooseDirectories: true, allowsMultipleSelection: true) {
                             Image(systemName: "plus")
                         }
                     }
                     .frame(width: 290, alignment: .trailing)
-                    
+
                     DropZone(files: $files)
                         .frame(width: 290, height: 150)
                 }
-                
+
             }
-            
+
             Spacer()
-            
+
             HStack {
                 Button(action: {
                     isOpen = false
@@ -89,9 +83,7 @@ struct CreateS3Content: View {
         .frame(width: 300, height: 300)
         .padding()
     }
-    
-    
-    
+
     private func applyCreateFolder() {
         Task {
             do {
@@ -99,15 +91,15 @@ struct CreateS3Content: View {
                 if sanitized.hasSuffix("/") {
                     sanitized.removeLast()
                 }
-                
+
                 if sanitized.contains("/") {
                     throw S3Error(message: "folders cannot contain \"/\"")
                 }
                 sanitized = sanitized + "/"
                 try await createFolder(using: s3Client, bucket: bucket, key: path + sanitized)
-                tableItems.append(TableItem(
-                    fields: [
-                        TableFieldItem(value: sanitized)
+                tableItems.append(TableLine(
+                    items: [
+                        TableItem(type: .string, value: sanitized)
                     ],
                     action: { _ in navModel.navigate(AnyView(S3Content(s3Client: s3Client, bucket: bucket, path: path + sanitized)), label: sanitized) },
                     additional: S3ClientTypes.CommonPrefix(prefix: sanitized)
@@ -119,9 +111,8 @@ struct CreateS3Content: View {
         }
     }
 
-    
     private func confirm () {
-        if (selectedOption == "folder") {
+        if selectedOption == "folder" {
             applyCreateFolder()
         } else {
             for f in files {

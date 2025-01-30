@@ -3,8 +3,6 @@ let AWSRegions: [AWSRegionItem] = [
     AWSRegionItem(region: "us-east-2"),  // US East (Ohio)
     AWSRegionItem(region: "us-west-1"),  // US West (N. California)
     AWSRegionItem(region: "us-west-2"),  // US West (Oregon)
-    AWSRegionItem(region: "af-south-1"), // Africa (Cape Town)
-    AWSRegionItem(region: "ap-east-1"),  // Asia Pacific (Hong Kong)
     AWSRegionItem(region: "ap-south-1"), // Asia Pacific (Mumbai)
     AWSRegionItem(region: "ap-northeast-3"), // Asia Pacific (Osaka)
     AWSRegionItem(region: "ap-northeast-2"), // Asia Pacific (Seoul)
@@ -15,9 +13,7 @@ let AWSRegions: [AWSRegionItem] = [
     AWSRegionItem(region: "eu-central-1"),   // EU (Frankfurt)
     AWSRegionItem(region: "eu-west-1"),      // EU (Ireland)
     AWSRegionItem(region: "eu-west-2"),      // EU (London)
-    AWSRegionItem(region: "eu-south-1"),     // EU (Milan)
     AWSRegionItem(region: "eu-west-3"),      // EU (Paris)
     AWSRegionItem(region: "eu-north-1"),     // EU (Stockholm)
-    AWSRegionItem(region: "me-south-1"),     // Middle East (Bahrain)
     AWSRegionItem(region: "sa-east-1")       // South America (São Paulo)
 ]

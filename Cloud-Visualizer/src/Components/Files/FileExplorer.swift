@@ -2,12 +2,12 @@ import SwiftUI
 
 struct FileExplorer<Content: View>: View {
     @Binding var files: [FilesModel]
-    
+
     var canChooseFiles: Bool = true
     var canChooseDirectories: Bool = false
     var allowsMultipleSelection: Bool = false
     let buttonContent: Content
-    
+
     init(
         files: Binding<[FilesModel]>,
         canChooseFiles: Bool = true,
@@ -21,7 +21,7 @@ struct FileExplorer<Content: View>: View {
         self.allowsMultipleSelection = allowsMultipleSelection
         self.buttonContent = buttonContent()
     }
-    
+
     private func openFilePicker() {
         let panel = NSOpenPanel()
         panel.canChooseFiles = canChooseFiles
@@ -34,7 +34,7 @@ struct FileExplorer<Content: View>: View {
             }
         }
     }
-    
+
     var body: some View {
         Button(action: {
             openFilePicker()

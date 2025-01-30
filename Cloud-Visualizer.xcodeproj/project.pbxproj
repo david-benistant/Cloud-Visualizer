@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		637736412D0D3E560028DEAE /* AWSSDKHTTPAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 637736402D0D3E560028DEAE /* AWSSDKHTTPAuth */; };
-		637736432D0D3EA60028DEAE /* AWSSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 637736422D0D3EA60028DEAE /* AWSSDKCommon */; };
-		637736452D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 637736442D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth */; };
-		637736472D0D3EB60028DEAE /* AWSSDKChecksums in Frameworks */ = {isa = PBXBuildFile; productRef = 637736462D0D3EB60028DEAE /* AWSSDKChecksums */; };
-		63E296742D0BAD5700CDAC5D /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 63E296732D0BAD5700CDAC5D /* AWSS3 */; };
-		63E296762D0BAFC400CDAC5D /* AWSClientRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 63E296752D0BAFC400CDAC5D /* AWSClientRuntime */; };
-		63E296842D0BB36A00CDAC5D /* AWSSDKIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 63E296832D0BB36A00CDAC5D /* AWSSDKIdentity */; };
+		630EB4E62D3A8F500000070D /* AWSSDKHTTPAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4E52D3A8F500000070D /* AWSSDKHTTPAuth */; };
+		630EB4E82D3A8F580000070D /* AWSSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4E72D3A8F580000070D /* AWSSDKCommon */; };
+		630EB4EA2D3A8F5F0000070D /* AWSSDKEventStreamsAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4E92D3A8F5F0000070D /* AWSSDKEventStreamsAuth */; };
+		630EB4EC2D3A8F650000070D /* AWSSDKChecksums in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4EB2D3A8F650000070D /* AWSSDKChecksums */; };
+		630EB4EE2D3A8F6E0000070D /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4ED2D3A8F6E0000070D /* AWSS3 */; };
+		630EB4F02D3A8F750000070D /* AWSClientRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4EF2D3A8F750000070D /* AWSClientRuntime */; };
+		630EB4F22D3A8F7B0000070D /* AWSSDKIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4F12D3A8F7B0000070D /* AWSSDKIdentity */; };
+		630EB4F62D3A92FD0000070D /* AWSDynamoDB in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4F52D3A92FD0000070D /* AWSDynamoDB */; };
+		630EB4F82D3A92FD0000070D /* AWSDynamoDBStreams in Frameworks */ = {isa = PBXBuildFile; productRef = 630EB4F72D3A92FD0000070D /* AWSDynamoDBStreams */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,13 +77,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63E296762D0BAFC400CDAC5D /* AWSClientRuntime in Frameworks */,
-				637736472D0D3EB60028DEAE /* AWSSDKChecksums in Frameworks */,
-				637736412D0D3E560028DEAE /* AWSSDKHTTPAuth in Frameworks */,
-				63E296842D0BB36A00CDAC5D /* AWSSDKIdentity in Frameworks */,
-				63E296742D0BAD5700CDAC5D /* AWSS3 in Frameworks */,
-				637736452D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth in Frameworks */,
-				637736432D0D3EA60028DEAE /* AWSSDKCommon in Frameworks */,
+				630EB4F02D3A8F750000070D /* AWSClientRuntime in Frameworks */,
+				630EB4EE2D3A8F6E0000070D /* AWSS3 in Frameworks */,
+				630EB4E82D3A8F580000070D /* AWSSDKCommon in Frameworks */,
+				630EB4EA2D3A8F5F0000070D /* AWSSDKEventStreamsAuth in Frameworks */,
+				630EB4F82D3A92FD0000070D /* AWSDynamoDBStreams in Frameworks */,
+				630EB4F62D3A92FD0000070D /* AWSDynamoDB in Frameworks */,
+				630EB4F22D3A8F7B0000070D /* AWSSDKIdentity in Frameworks */,
+				630EB4EC2D3A8F650000070D /* AWSSDKChecksums in Frameworks */,
+				630EB4E62D3A8F500000070D /* AWSSDKHTTPAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,13 +154,15 @@
 			);
 			name = "Cloud-Visualizer";
 			packageProductDependencies = (
-				63E296732D0BAD5700CDAC5D /* AWSS3 */,
-				63E296752D0BAFC400CDAC5D /* AWSClientRuntime */,
-				63E296832D0BB36A00CDAC5D /* AWSSDKIdentity */,
-				637736402D0D3E560028DEAE /* AWSSDKHTTPAuth */,
-				637736422D0D3EA60028DEAE /* AWSSDKCommon */,
-				637736442D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth */,
-				637736462D0D3EB60028DEAE /* AWSSDKChecksums */,
+				630EB4E52D3A8F500000070D /* AWSSDKHTTPAuth */,
+				630EB4E72D3A8F580000070D /* AWSSDKCommon */,
+				630EB4E92D3A8F5F0000070D /* AWSSDKEventStreamsAuth */,
+				630EB4EB2D3A8F650000070D /* AWSSDKChecksums */,
+				630EB4ED2D3A8F6E0000070D /* AWSS3 */,
+				630EB4EF2D3A8F750000070D /* AWSClientRuntime */,
+				630EB4F12D3A8F7B0000070D /* AWSSDKIdentity */,
+				630EB4F52D3A92FD0000070D /* AWSDynamoDB */,
+				630EB4F72D3A92FD0000070D /* AWSDynamoDBStreams */,
 			);
 			productName = "Cloud-Visualizer";
 			productReference = 63069BC82D0781F1008ABB86 /* Cloud-Visualizer.app */;
@@ -244,7 +250,8 @@
 			mainGroup = 63069BBF2D0781F1008ABB86;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */,
+				630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
+				6378A6552D4C243300968AA3 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 63069BC92D0781F1008ABB86 /* Products */;
@@ -609,48 +616,70 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../.swiftPackages/aws-sdk-swift";
+/* Begin XCRemoteSwiftPackageReference section */
+		630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/awslabs/aws-sdk-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+		6378A6552D4C243300968AA3 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.58.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		637736402D0D3E560028DEAE /* AWSSDKHTTPAuth */ = {
+		630EB4E52D3A8F500000070D /* AWSSDKHTTPAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSSDKHTTPAuth;
 		};
-		637736422D0D3EA60028DEAE /* AWSSDKCommon */ = {
+		630EB4E72D3A8F580000070D /* AWSSDKCommon */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSSDKCommon;
 		};
-		637736442D0D3EAE0028DEAE /* AWSSDKEventStreamsAuth */ = {
+		630EB4E92D3A8F5F0000070D /* AWSSDKEventStreamsAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSSDKEventStreamsAuth;
 		};
-		637736462D0D3EB60028DEAE /* AWSSDKChecksums */ = {
+		630EB4EB2D3A8F650000070D /* AWSSDKChecksums */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSSDKChecksums;
 		};
-		63E296732D0BAD5700CDAC5D /* AWSS3 */ = {
+		630EB4ED2D3A8F6E0000070D /* AWSS3 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSS3;
 		};
-		63E296752D0BAFC400CDAC5D /* AWSClientRuntime */ = {
+		630EB4EF2D3A8F750000070D /* AWSClientRuntime */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSClientRuntime;
 		};
-		63E296832D0BB36A00CDAC5D /* AWSSDKIdentity */ = {
+		630EB4F12D3A8F7B0000070D /* AWSSDKIdentity */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 63E296722D0BABEB00CDAC5D /* XCLocalSwiftPackageReference "../../.swiftPackages/aws-sdk-swift" */;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSSDKIdentity;
+		};
+		630EB4F52D3A92FD0000070D /* AWSDynamoDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
+			productName = AWSDynamoDB;
+		};
+		630EB4F72D3A92FD0000070D /* AWSDynamoDBStreams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
+			productName = AWSDynamoDBStreams;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

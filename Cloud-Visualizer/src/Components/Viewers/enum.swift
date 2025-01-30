@@ -1,4 +1,3 @@
-
 enum Viewer: String {
     case text = "TEXT"
     case pdf = "PDF"

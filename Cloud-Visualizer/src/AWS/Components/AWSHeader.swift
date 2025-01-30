@@ -2,13 +2,12 @@ import SwiftUI
 import Combine
 
 struct AWSHeader: View {
-    
+
     let callback: (CredentialItem, AWSRegionItem) -> Void
-    
+
     @StateObject private var authItem: AWSAuthItem = AWSAuthItem()
     @State private var cancellables = Set<AnyCancellable>()
-    
-    
+
     var body: some View {
         HStack {
             AccountPicker(selectedOption: $authItem.credential, type: "AWS")
@@ -20,7 +19,7 @@ struct AWSHeader: View {
             observeAuthItemChanges()
         }
     }
-    
+
     private func observeAuthItemChanges() {
         let localCallback = self.callback
         authItem.$credential

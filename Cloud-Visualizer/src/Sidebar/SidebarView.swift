@@ -15,9 +15,9 @@ struct SidebarView: View {
                     Section {
                         NavigationLink(value: homeItem) {
                             HStack {
-                                
+
                                 Image(systemName: homeItem.icon)
-                                
+
                                 Text(homeItem.title)
                             }
                         }
@@ -29,7 +29,7 @@ struct SidebarView: View {
                 .onChange(of: searchText) {
                     viewModel.search(query: searchText)
                 }
-                
+
                 Divider()
                     .padding(.bottom, 10)
 
@@ -42,9 +42,7 @@ struct SidebarView: View {
                                     .scaledToFit()
                                     .frame(width: 20, height: 20)
                                     .cornerRadius(3)
-                                
-                                
-                                
+
                                 Text(item.title)
                             }
                         }
@@ -52,18 +50,17 @@ struct SidebarView: View {
                 }
                 .listStyle(SidebarListStyle())
 
-
                 Spacer()
 
                 Divider()
                     .padding(.vertical, 10)
-                
+
                 List(selection: $selectedItem) {
                     NavigationLink(value: settingsItem) {
                         HStack {
-                            
+
                             Image(systemName: settingsItem.icon)
-                            
+
                             Text(settingsItem.title)
                         }
                     }
@@ -74,9 +71,7 @@ struct SidebarView: View {
                         viewModel.selectItem(selectedItem: item)
                     }
                 }
-                
-                
-                
+
             }
         } detail: {
             if let selectedItem = selectedItem {
@@ -86,7 +81,7 @@ struct SidebarView: View {
             }
         }
         .navigationSplitViewStyle(.balanced)
-        
+
         .navigationDestination(for: SidebarItem.self) { item in
             item.destination
         }

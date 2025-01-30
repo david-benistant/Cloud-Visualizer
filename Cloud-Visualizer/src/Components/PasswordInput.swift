@@ -4,7 +4,7 @@ struct PasswordInput: View {
     let label: String
     let disabled: Bool
     @Binding var field: String
-    
+
     var body: some View {
         HStack {
             Text(label)

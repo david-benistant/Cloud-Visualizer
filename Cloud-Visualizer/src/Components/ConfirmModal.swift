@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct ConfirmModal: View {
@@ -8,7 +7,7 @@ struct ConfirmModal: View {
     var body: some View {
         VStack {
             ModalHeader(title: "Warning", errorMessage: .constant(nil))
-            
+
             Spacer()
             Image("Warning")
                 .resizable()
@@ -19,7 +18,7 @@ struct ConfirmModal: View {
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, minHeight: 75, alignment: .center)
             Spacer()
-            
+
             HStack {
                 Button(action: {
                     isOpen = false
@@ -31,17 +30,17 @@ struct ConfirmModal: View {
                         await onConfirm()
                         isOpen = false
                     }
-                    
+
                 }) {
                     Text("Confirm")
                 }
                 .keyboardShortcut(.defaultAction)
-                
+
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .frame(width: 200)
         .padding()
     }
-    
+
 }

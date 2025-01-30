@@ -5,7 +5,7 @@ struct SettingsViewItem: View {
     @Binding var selectedItem: CredentialItem
     let geometry: GeometryProxy
     let viewModel: SettingsViewModel
-    
+
     var body: some View {
         Section {
             if selectedItem.type != "None" {
@@ -20,29 +20,29 @@ struct SettingsViewItem: View {
                                     .font(.title)
                             }
                             .frame(height: 60, alignment: .leading)
-                            
+
                             Spacer()
-                            
+
                             HStack {
                                 Button(action: {
                                     isEditModalOpen = true
                                 }) {
                                     Image(systemName: "pencil")
-                                    
+
                                 }
                                 .buttonStyle(.borderless)
-                                
+
                                 Button(action: {
                                     viewModel.copyCredentialToPasteboard(selectedItem)
                                 }) {
                                     Text("Copy")
                                         .font(.body)
-                                    
+
                                 }
                                 .buttonStyle(.borderless)
                             }
                         }
-                        
+
                         switch selectedItem.type {
                         case "AWS":
                             AWSSettingsView(item: selectedItem)
@@ -66,9 +66,9 @@ struct SettingsViewItem: View {
         .frame(width: max(0, geometry.size.width - 250))
         .sheet(isPresented: $isEditModalOpen) {
             EditCredsView(isPresented: $isEditModalOpen, viewModel: viewModel, editItem: $selectedItem)
-            
+
         }
-        
+
     }
-    
+
 }

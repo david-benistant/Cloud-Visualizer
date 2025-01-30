@@ -1,9 +1,9 @@
 import SwiftUI
 import Smithy
 
-fileprivate struct ImageView: View {
+private struct ImageView: View {
     let imageData: Data
-    
+
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -20,11 +20,11 @@ fileprivate struct ImageView: View {
 
 struct ImageViewer {
     private let view: NSHostingView<ImageView>
-    
+
     init (imageData: Data) {
         self.view = NSHostingView(rootView: ImageView(imageData: imageData))
     }
-    
+
     @MainActor
     init(imageStream: ByteStream) async throws {
         do {
@@ -37,7 +37,7 @@ struct ImageViewer {
             throw error
         }
     }
-    
+
     func open(title: String) {
         let window = NSWindow(
             contentRect: NSRect(x: 300, y: 300, width: 800, height: 600),
@@ -45,11 +45,11 @@ struct ImageViewer {
             backing: .buffered,
             defer: false
         )
-        
+
         window.isReleasedWhenClosed = false
         window.title = title
         window.contentView = view
         window.makeKeyAndOrderFront(nil)
     }
-    
+
 }

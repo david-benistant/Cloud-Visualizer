@@ -2,17 +2,16 @@ import SwiftUI
 import WebKit
 import Smithy
 
-
 struct HtmlViewer {
     private let view: WKWebView
-    
+
     init (htmlData: Data) {
         self.view = WKWebView()
         if let htmlContent = String(data: htmlData, encoding: .utf8) {
             self.view.loadHTMLString(htmlContent, baseURL: nil)
         }
     }
-    
+
     @MainActor
     init(htmlStream: ByteStream) async throws {
         do {
@@ -28,7 +27,7 @@ struct HtmlViewer {
             throw error
         }
     }
-    
+
     func open(title: String) {
         let window = NSWindow(
             contentRect: NSRect(x: 300, y: 300, width: 800, height: 600),
@@ -42,5 +41,5 @@ struct HtmlViewer {
         window.contentView = view
         window.makeKeyAndOrderFront(nil)
     }
-    
+
 }

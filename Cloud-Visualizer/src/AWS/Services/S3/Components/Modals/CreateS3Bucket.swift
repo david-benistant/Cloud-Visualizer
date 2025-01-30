@@ -1,4 +1,3 @@
-
 import SwiftUI
 import AWSS3
 
@@ -8,15 +7,15 @@ struct CreateS3Bucket: View {
     let s3Client: S3ClientWrapper
     @State var name: String = ""
     @State var errorMessage: String?
-    @Binding var tableItems: [TableItem]
+    @Binding var tableItems: [TableLine]
 
     var body: some View {
         VStack {
             ModalHeader(title: "Add Bucket", errorMessage: $errorMessage)
-            
+
             Spacer()
-            TextInput(label: "Bucket Name", disabled: false ,field: $name)
-            
+            TextInput(label: "Bucket Name", disabled: false, field: $name)
+
             Spacer()
             HStack {
                 Button(action: {
@@ -27,13 +26,13 @@ struct CreateS3Bucket: View {
                 Button(action: {
                     Task {
                         do {
-                            try await createBucket(using: s3Client, name : name)
-                            
+                            try await createBucket(using: s3Client, name: name)
+
                             isOpen = false
                             let region = s3Client.region.region
                             let bucket = S3BucketWrapper(bucket: S3ClientTypes.Bucket(name: name), region: s3Client.region)
-                            tableItems.append(TableItem(
-                                fields: [ TableFieldItem(value: name), TableFieldItem(value: region), TableFieldItem(value: Date())],
+                            tableItems.append(TableLine(
+                                items: [ TableItem(type: .string, value: name), TableItem(type: .string, value: region), TableItem(type: .date, value: Date())],
                                 action: { _ in navModel.navigate(AnyView(S3Content(s3Client: s3Client, bucket: bucket, path: "")), label: name) },
                                 additional: bucket
                             ))

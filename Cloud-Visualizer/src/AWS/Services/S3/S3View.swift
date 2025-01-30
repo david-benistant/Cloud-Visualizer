@@ -2,16 +2,13 @@ import SwiftUI
 
 import AWSS3
 
-fileprivate struct S3: View {
-    
-    @State private var s3Client: S3ClientWrapper? = nil
-    
-    @State private var isOpen: Bool = true
-    @State private var tableItems: [TableItem] = []
-    
+private struct S3: View {
+
+    @State private var s3Client: S3ClientWrapper?
+
     var body: some View {
-        
-        S3Table(s3Client: s3Client)
+
+        S3Table(s3Client: $s3Client)
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     AWSHeader(callback: doAuth)
@@ -22,8 +19,7 @@ fileprivate struct S3: View {
                     s3Client = nil
                 }
             }
-        Section {}
-        
+
     }
 
     func doAuth(cred: CredentialItem, region: AWSRegionItem) {

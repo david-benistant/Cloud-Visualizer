@@ -2,33 +2,32 @@ import SwiftUI
 import AWSS3
 import UniformTypeIdentifiers
 
-
-fileprivate let tableConfig: [TableConfigItem] = [
-    TableConfigItem(label: "Key", type: .string),
-    TableConfigItem(label: "Size", type: .size, maxWidth: 100),
-    TableConfigItem(label: "Storage class", type: .string),
-    TableConfigItem(label: "Last modified", type: .date, alignment: .trailing),
+private let tableConfig: [TableConfig] = [
+    TableConfig(label: "Key"),
+    TableConfig(label: "Size", maxWidth: 100),
+    TableConfig(label: "Storage class"),
+    TableConfig(label: "Last modified", alignment: .trailing)
 ]
 
 struct S3Content: View {
-    
+
     let s3Client: S3ClientWrapper
     let bucket: S3BucketWrapper
     let path: String
-    
+
     @EnvironmentObject var navModel: NavModel
-    @StateObject private var tableItems: TableItemsModel = TableItemsModel(tableConfig: tableConfig)
+    @StateObject private var tableItems: TableModel = TableModel(tableConfig: tableConfig)
     @State private var isCreateModalOpen: Bool = false
     @State private var isDeleteModalOpen: Bool = false
     @State private var isClearModalOpen: Bool = false
-    
+
     @State private var isSelectViewerOpen: Bool = false
-    
+
     @State private var droppedFiles: [URL] = []
     @State private var isHighlighted: Bool = false
-    
+
     @State private var viewerData: (Data, String)?
-    
+
     private var sideBarItems: [TableSideBarItem] {
         [
             TableSideBarItem(
@@ -55,26 +54,25 @@ struct S3Content: View {
                     await applyDownload()
                 } },
                 disabled: isOneObjectSelected()
-            ),
+            )
         ]
     }
-    
+
     private func isOneSelected() -> Bool {
         return !tableItems.items.contains { $0.isSelected }
     }
-    
+
     private func isOneFolderSelected() -> Bool {
         return !tableItems.items.contains { $0.isSelected && $0.additional as AnyObject is S3ClientTypes.CommonPrefix }
     }
-    
+
     private func isOneObjectSelected() -> Bool {
         return !tableItems.items.contains { $0.isSelected && $0.additional as AnyObject is S3ClientTypes.Object }
     }
-    
-    
-    //--Sidebar buttons actions--//
-    
-    private func applyDelete() async -> Void {
+
+    // --Sidebar buttons actions--//
+
+    private func applyDelete() async {
         do {
             await applyClearContents()
             var remainingObjects = tableItems.items
@@ -100,8 +98,8 @@ struct S3Content: View {
             print("An unknown error occurred: \(error)")
         }
     }
-    
-    private func applyDownload() async -> Void {
+
+    private func applyDownload() async {
         do {
             for item in tableItems.items {
                 if item.isSelected {
@@ -118,8 +116,8 @@ struct S3Content: View {
             print("An unknown error occurred: \(error)")
         }
     }
-    
-    private func applyClearContents() async -> Void {
+
+    private func applyClearContents() async {
         do {
             for item in tableItems.items {
                 if item.isSelected {
@@ -149,9 +147,8 @@ struct S3Content: View {
             print("An unknown error occurred: \(error)")
         }
     }
-    
-    
-    private func searchFunction(item: TableItem, search: String) -> Bool {
+
+    private func searchFunction(item: TableLine, search: String) -> Bool {
         if let folder = item.additional as? S3ClientTypes.CommonPrefix {
             if let prefix = folder.prefix {
                 return prefix.contains(search)
@@ -163,27 +160,12 @@ struct S3Content: View {
         }
         return false
     }
-    
-    //-- items loading --//
-    
-    private func loadContent() {
-        Task {
-            do {
-                let objectList = try await listObjects(using: s3Client, bucket: bucket, path: path)
-                tableItems.items =  wrapObjectsList(objectList, path: path).map { item in
-                    return actionFunction(item);
-                }
-            } catch {
-                print("error while fetching objects")
-            }
-        }
-    }
-    
-    //-- items actions --//
-    
+
+    // -- items actions --//
+
     private func selectViewerCallback(_ viewer: Viewer) {
         if let data = viewerData {
-            
+
             switch viewer {
             case .image:
                 let image = ImageViewer(imageData: data.0)
@@ -200,12 +182,14 @@ struct S3Content: View {
             }
         }
     }
-    
-    private func actionFunction(_ item: TableItem) -> TableItem {
+
+    private func actionFunction(_ item: TableLine) -> TableLine {
         if let folder = item.additional as? S3ClientTypes.CommonPrefix {
             if let prefix = folder.prefix {
                 let label = String(prefix.dropFirst(path.count))
-                item.action = { _ in navModel.navigate(AnyView(S3Content(s3Client: s3Client, bucket: bucket, path: prefix)), label: label)}
+                item.action = { _ in
+                    navModel.navigate(AnyView(S3Content(s3Client: s3Client, bucket: bucket, path: prefix)), label: label)
+                }
             }
         }
         if let object = item.additional as? S3ClientTypes.Object {
@@ -216,10 +200,10 @@ struct S3Content: View {
                             let object = try await getObject(using: s3Client, bucket: bucket, key: key)
                             let label = String(key.dropFirst(path.count))
                             if let body = object.body {
-                                
+
                                 if let data = try await body.readData() {
                                     let type = getDataMimeType(from: data)
-                                    switch (type) {
+                                    switch type {
                                     case .pdf:
                                         let pdf = PDFViewer(pdfData: data)
                                         pdf.open(title: label)
@@ -244,7 +228,7 @@ struct S3Content: View {
                                     case .txt:
                                         let textView = TextViewer(textData: data)
                                         textView.open(title: label)
-                                        
+
                                     default:
                                         viewerData = (data, label)
                                         isSelectViewerOpen = true
@@ -252,26 +236,26 @@ struct S3Content: View {
                                     }
                                     print()
                                 }
-                                
+
                             }
                         } catch {
                             print("error while displaying content :", error)
                         }
-                        
+
                     }
-                    
+
                 }
             }
         }
-        return item;
+        return item
     }
-    
-    //-- files drop functions --//
-    
+
+    // -- files drop functions --//
+
     private func handleDrop(providers: [NSItemProvider]) -> Bool {
         for provider in providers {
             if provider.hasItemConformingToTypeIdentifier(UTType.fileURL.identifier) {
-                provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { (item, error) in
+                provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { (item, _) in
                     DispatchQueue.main.async {
                         if let data = item as? Data,
                            let url = URL(dataRepresentation: data, relativeTo: nil) {
@@ -284,11 +268,11 @@ struct S3Content: View {
         }
         return true
     }
-    
+
     private func explore(url: URL) -> [URL] {
         var out: [URL] = []
         out.append(url)
-        if (url.hasDirectoryPath) {
+        if url.hasDirectoryPath {
             let fileManager = FileManager.default
             if let enumerator = fileManager.enumerator(at: url, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles]) {
                 for case let fileURL as URL in enumerator {
@@ -298,22 +282,22 @@ struct S3Content: View {
         }
         return out
     }
-    
+
     private func uploadFiles(urls: [URL]) {
         Task {
             if let originUrl = urls.first {
-                if (originUrl.hasDirectoryPath) {
+                if originUrl.hasDirectoryPath {
                     await createDroppedFolder(key: originUrl.lastPathComponent, relativePath: "")
                 } else {
                     await createDroppedFile(key: originUrl.lastPathComponent, relativePath: "", fileUrl: originUrl)
                 }
-                
+
                 var remainsUrls = urls
                 remainsUrls.removeFirst()
-                
+
                 for url in remainsUrls {
                     let relativePath = String(url.path.replacingOccurrences(of: originUrl.path + "/", with: "").dropLast(url.lastPathComponent.count))
-                    if (url.hasDirectoryPath) {
+                    if url.hasDirectoryPath {
                         await createDroppedFolder(key: url.lastPathComponent, relativePath: originUrl.lastPathComponent + "/" + relativePath)
                     } else {
                         await createDroppedFile(key: url.lastPathComponent, relativePath: originUrl.lastPathComponent + "/" + relativePath, fileUrl: url)
@@ -322,25 +306,25 @@ struct S3Content: View {
             }
         }
     }
-    
+
     private func createDroppedFolder(key: String, relativePath: String) async {
         do {
             var sanitized = key
             if sanitized.hasSuffix("/") {
                 sanitized.removeLast()
             }
-            
+
             if sanitized.contains("/") {
                 throw S3Error(message: "folders cannot contain \"/\"")
             }
-            
+
             sanitized = sanitized + "/"
             try await createFolder(using: s3Client, bucket: bucket, key: path + relativePath + sanitized)
-            
-            if (relativePath.isEmpty) {
-                tableItems.items.append(TableItem(
-                    fields: [
-                        TableFieldItem(value: sanitized)
+
+            if relativePath.isEmpty {
+                tableItems.items.append(TableLine(
+                    items: [
+                        TableItem(type: .string, value: sanitized)
                     ],
                     action: { _ in navModel.navigate(AnyView(S3Content(s3Client: s3Client, bucket: bucket, path: path + relativePath + sanitized)), label: sanitized) },
                     additional: S3ClientTypes.CommonPrefix(prefix: sanitized)
@@ -352,14 +336,14 @@ struct S3Content: View {
             print("an error occured while creating folder")
         }
     }
-    
+
     private func createDroppedFile(key: String, relativePath: String, fileUrl: URL) async {
         do {
             try await uploadFile(using: s3Client, bucket: bucket, path: path + relativePath, fileUrl: fileUrl)
-            
-            if (relativePath.isEmpty) {
-                let item = TableItem(
-                    fields: [TableFieldItem(value: key)],
+
+            if relativePath.isEmpty {
+                let item = TableLine(
+                    items: [TableItem(type: .string, value: key)],
                     additional: S3ClientTypes.Object(key: path + key))
                 tableItems.items.append(actionFunction(item))
             }
@@ -369,17 +353,40 @@ struct S3Content: View {
             print("an error occured while creating file")
         }
     }
-    
-    //-- body --//
-    
+
+    // -- body --//
+
     var body: some View {
-        Table(tableItems: tableItems, sideBarItems: sideBarItems, searchBarFunction: searchFunction)
+        Table(tableModel: tableItems, sideBarItems: sideBarItems, searchBarFunction: searchFunction)
             .border(isHighlighted ? .white : .clear)
-            .onAppear() {
-                loadContent()
+            .onAppear {
+                tableItems.loadContentFunction = { _ in
+                    Task {
+                        do {
+                            let objectList = try await listObjects(using: s3Client, bucket: bucket, path: path)
+                            tableItems.items =  wrapObjectsList(objectList, path: path).map { item in
+                                return actionFunction(item)
+                            }
+                        } catch {
+                            print("error while fetching objects")
+                        }
+                    }
+                }
             }
             .onChange(of: path) {
-                loadContent()
+                tableItems.loadContentFunction = { _ in
+                    Task {
+                        do {
+                            let objectList = try await listObjects(using: s3Client, bucket: bucket, path: path)
+                            tableItems.items =  wrapObjectsList(objectList, path: path).map { item in
+                                return actionFunction(item)
+                            }
+                        } catch {
+                            print("error while fetching objects")
+                        }
+                    }
+                }
+                tableItems.reInit()
             }
             .onDrop(of: [UTType.fileURL], isTargeted: $isHighlighted) { providers in
                 handleDrop(providers: providers)
@@ -399,7 +406,7 @@ struct S3Content: View {
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     Button(action: {
-                        loadContent()
+                        tableItems.reload()
                     }) {
                         Image(systemName: "arrow.trianglehead.clockwise")
                     }

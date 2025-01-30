@@ -43,7 +43,7 @@ class SettingsViewModel: ObservableObject {
 
     func convertCredentialsToCSV(_ item: CredentialItem) -> String {
         var csvString = ""
-        if (item.type == "AWS") {
+        if item.type == "AWS" {
             csvString = """
             \(item.name),\(item.AWSKeyId),\(item.AWSSecretAccessKey),\(item.endpoint)
             """
@@ -58,4 +58,3 @@ class SettingsViewModel: ObservableObject {
         pasteboard.setString(csvString, forType: .string)
     }
 }
-

@@ -39,7 +39,7 @@ struct SettingsView: View {
     @State private var isAddModalOpen = false
     @State private var searchText = ""
     @State private var selectedItem: CredentialItem = CredentialItem(type: "None", name: "")
-    
+
     var filteredItems: [CredentialItem] {
         if searchText.isEmpty {
             return viewModel.credentials
@@ -47,11 +47,11 @@ struct SettingsView: View {
             return viewModel.credentials.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         }
     }
-    
+
     var body: some View {
         Section {
             GeometryReader { geometry in
-                HStack (spacing: 0){
+                HStack(spacing: 0) {
                     List {
                         ForEach(filteredItems, id: \.id) { item in
                             Button(action: {
@@ -59,7 +59,7 @@ struct SettingsView: View {
                             }) {
                                 HStack {
                                     SettingsItemImageView(item: item, size: 35, imageSize: 30)
-                                    
+
                                     Text(item.name)
                                         .font(.body)
                                         .foregroundColor(item == selectedItem ? .blue : .white)
@@ -75,7 +75,7 @@ struct SettingsView: View {
                     Divider()
                            .background(Color.black)
                     SettingsViewItem(selectedItem: $selectedItem, geometry: geometry, viewModel: viewModel)
-                    
+
                 }
             }
             .frame(minWidth: 650)
@@ -88,16 +88,15 @@ struct SettingsView: View {
                     Label("add", systemImage: "plus")
                 }
             }
-            
+
         }
         .searchable(text: $searchText)
         .sheet(isPresented: $isAddModalOpen) {
             AddCredsView(isPresented: $isAddModalOpen, viewModel: viewModel)
         }
-        
+
     }
-        
-    
+
 }
 
 #Preview {

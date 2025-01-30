@@ -1,13 +1,22 @@
 {
-  "originHash" : "d1a6ca6f7cac1a36fe847fa8ee01ce1686404e9c5b04deddb5cf2e55cfe571b7",
+  "originHash" : "43cb64bb12bc507eb2b047562e36a78c9058e7c3fbb287dbd4dc7b43df6334ce",
   "pins" : [
     {
       "identity" : "aws-crt-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/awslabs/aws-crt-swift",
       "state" : {
-        "revision" : "dd17a98750b6182edacd6e8f0c30aa289c472b22",
-        "version" : "0.40.0"
+        "revision" : "5a65eb60edbd080a8a79af813a5bb6e5ff387550",
+        "version" : "0.43.0"
+      }
+    },
+    {
+      "identity" : "aws-sdk-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/awslabs/aws-sdk-swift",
+      "state" : {
+        "revision" : "8ab0a85c47cd4098213984469e9b401851bacde8",
+        "version" : "1.1.1"
       }
     },
     {
@@ -15,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smithy-lang/smithy-swift",
       "state" : {
-        "revision" : "2b7c80c69759cb6e2b9dd2f1f6c90e2f515a7066",
-        "version" : "0.101.0"
+        "revision" : "c1adba401d08e511a63cf6270773ed17c92f2032",
+        "version" : "0.110.0"
       }
     },
     {
@@ -26,6 +35,15 @@
       "state" : {
         "revision" : "96a2f8a0fa41e9e09af4585e2724c4e825410b91",
         "version" : "1.6.2"
+      }
+    },
+    {
+      "identity" : "swiftlintplugins",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
+      "state" : {
+        "revision" : "7a3d77f3dd9f91d5cea138e52c20cfceabf352de",
+        "version" : "0.58.2"
       }
     }
   ],

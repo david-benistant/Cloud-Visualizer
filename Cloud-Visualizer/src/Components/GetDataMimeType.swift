@@ -2,22 +2,22 @@ import SwiftUI
 
 // https://en.wikipedia.org/wiki/List_of_file_signatures
 
-fileprivate func nonBinaryTypes(_ data: Data) -> MimeType {
+private func nonBinaryTypes(_ data: Data) -> MimeType {
     guard let content = String(data: data, encoding: .utf8) else {
         return .unknown
     }
-    
+
     let isPrintable = content.allSatisfy { character in
         if let scalar = character.unicodeScalars.first {
             return scalar.isASCII
         }
         return false
     }
-    
+
     if !isPrintable {
         return .unknown
     }
-    
+
     if content.starts(with: "<svg") {
         return .svg
     } else if content.contains("<html") || content.contains("<!DOCTYPE html>") || content.contains("<div") || content.contains("<span") {
@@ -27,7 +27,7 @@ fileprivate func nonBinaryTypes(_ data: Data) -> MimeType {
     }
 }
 
-func getDataMimeType(from data: Data) -> MimeType {    
+func getDataMimeType(from data: Data) -> MimeType {
     if data.prefix(4) == Data([0xFF, 0xD8, 0xFF, 0xE0]) {
         return .jpg
     }

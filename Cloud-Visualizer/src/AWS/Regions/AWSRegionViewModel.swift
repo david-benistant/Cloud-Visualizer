@@ -8,7 +8,7 @@ class AWSRegionViewModel: ObservableObject {
         }
         return AWSRegionItem(region: "us-east-1")
     }
-    
+
     func setCurrent(region: AWSRegionItem) {
         if let encoded = try? JSONEncoder().encode(region) {
             UserDefaults.standard.set(encoded, forKey: "AWSRegion")

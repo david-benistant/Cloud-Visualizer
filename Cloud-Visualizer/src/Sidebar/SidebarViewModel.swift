@@ -8,26 +8,24 @@ class SidebarItem: Identifiable, Hashable {
     let title: String
     let destination: AnyView
     let icon: String
-    
-    
+
     static func ==(lhs: SidebarItem, rhs: SidebarItem) -> Bool {
         return lhs.id == rhs.id
     }
-    
+
     init(id: UUID, title: String, destination: AnyView, icon: String) {
         self.id = id
         self.title = title
         self.destination = destination
         self.icon = icon
     }
-    
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(title)
         hasher.combine(icon)
     }
-    
+
 //    required init(from decoder: Decoder) throws {
 //        let container = try decoder.container(keyedBy: CodingKeys.self)
 //        
@@ -64,22 +62,22 @@ class SidebarViewModel: ObservableObject {
     init() {
         loadSidebarItems()
     }
-    
+
     func search(query: String) {
-        if (query.isEmpty) {
+        if query.isEmpty {
             displayedItems = sidebarItems
         } else {
-            displayedItems = sidebarItems.filter{item in return item.title.lowercased().contains(query.lowercased())}
+            displayedItems = sidebarItems.filter {item in return item.title.lowercased().contains(query.lowercased())}
         }
     }
-    
+
     private func loadSidebarItems() {
         if let savedItems = UserDefaults.standard.data(forKey: "sidebarItems"),
            let decodedItems = try? JSONDecoder().decode([UUID].self, from: savedItems) {
             let orderSet = Set(decodedItems)
             let matching: [SidebarItem] = allSidebarItems.filter { orderSet.contains($0.id) }
             let nonMatching: [SidebarItem] = allSidebarItems.filter { !orderSet.contains($0.id) }
-            
+
             let sortedMatching: [SidebarItem] = matching.sorted {
                 guard let index1 = decodedItems.firstIndex(of: $0.id), let index2 = decodedItems.firstIndex(of: $1.id) else {
                     return false
@@ -93,12 +91,12 @@ class SidebarViewModel: ObservableObject {
             self.displayedItems = allSidebarItems
         }
     }
-    
+
     func selectItem(selectedItem: SidebarItem) {
         if let index = sidebarItems.firstIndex(where: { $0 == selectedItem }) {
             sidebarItems.remove(at: index)
             sidebarItems.insert(selectedItem, at: 0)
-            if let encoded = try? JSONEncoder().encode(sidebarItems.map{item in return item.id}) {
+            if let encoded = try? JSONEncoder().encode(sidebarItems.map {item in return item.id}) {
                 UserDefaults.standard.set(encoded, forKey: "sidebarItems")
             }
             displayedItems = sidebarItems

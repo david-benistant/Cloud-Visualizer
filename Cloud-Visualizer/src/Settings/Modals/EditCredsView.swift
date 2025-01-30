@@ -10,25 +10,24 @@ struct EditCredsView: View {
     @State private var AWSKeyId: String = ""
     @State private var AWSSecretAccessKey: String = ""
     @State private var endpoint: String = ""
-    
+
     init(isPresented: Binding<Bool>, viewModel: SettingsViewModel, editItem: Binding<CredentialItem>) {
         _isPresented = isPresented
         _viewModel = ObservedObject(wrappedValue: viewModel)
         _editItem = editItem
-        
+
         _selectedOption = State(initialValue: editItem.wrappedValue.type)
         _name = State(initialValue: editItem.wrappedValue.name)
         _AWSKeyId = State(initialValue: editItem.wrappedValue.AWSKeyId)
         _AWSSecretAccessKey = State(initialValue: editItem.wrappedValue.AWSSecretAccessKey)
         _endpoint = State(initialValue: editItem.wrappedValue.endpoint)
     }
-    
+
     var body: some View {
         VStack {
             ModalHeader(title: "Edit credentials", errorMessage: .constant(nil))
                 .padding(.bottom)
-        
-            
+
             Section {
                 VStack {
                     HStack {
@@ -39,7 +38,7 @@ struct EditCredsView: View {
                             .multilineTextAlignment(.trailing)
                     }
                     .padding(.vertical, 5)
-                    
+
                     Section {
                         switch selectedOption {
                         case "AWS":
@@ -56,7 +55,7 @@ struct EditCredsView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray.opacity(0.5), lineWidth: 1)
             )
-            
+
             Section {
                 HStack {
 
@@ -69,11 +68,10 @@ struct EditCredsView: View {
                             Text("Delete")
                                 .foregroundColor(.red)
                         }
-                        
+
                     }
                     .frame(width: 200, alignment: .leading)
-                    
-                    
+
                     HStack {
                         Button(action: {
                             isPresented = false
@@ -81,14 +79,14 @@ struct EditCredsView: View {
                             Text("Cancel")
                         }
                         Button(action: {
-                            
+
                             editItem.name = name
                             editItem.AWSKeyId = AWSKeyId
                             editItem.AWSSecretAccessKey = AWSSecretAccessKey
                             editItem.endpoint = endpoint
-                            
+
                             viewModel.updateCredential(updatedItem: editItem)
-                            
+
                             isPresented = false
                         }) {
                             Text("Save")

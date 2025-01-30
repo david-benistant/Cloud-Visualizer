@@ -2,19 +2,16 @@ import SwiftUI
 import PDFKit
 import Smithy
 
-
-
 struct PDFViewer {
     private let view: NSView
-    
-    
+
     init (pdfData: Data) {
         let pdfView = PDFView()
         pdfView.document = PDFDocument(data: pdfData)
         pdfView.autoScales = true
         self.view = pdfView
     }
-    
+
     @MainActor
     init(pdfStream: ByteStream) async throws {
         do {
@@ -30,7 +27,6 @@ struct PDFViewer {
             throw error
         }
     }
-    
 
     func open(title: String) {
         let window = NSWindow(
@@ -39,12 +35,10 @@ struct PDFViewer {
             backing: .buffered,
             defer: false
         )
-        
+
         window.isReleasedWhenClosed = false
         window.title = title
         window.contentView = view
         window.makeKeyAndOrderFront(nil)
     }
 }
-
-

@@ -3,12 +3,12 @@ import SwiftUI
 struct AccountPicker: View {
     @StateObject private var viewModel: CredentialsViewModel
     @Binding var selectedOption: CredentialItem
-    
+
     init(selectedOption: Binding<CredentialItem>, type: String? = nil) {
         self._selectedOption = selectedOption
         self._viewModel = StateObject(wrappedValue: CredentialsViewModel(type: type))
     }
-    
+
     var body: some View {
         Picker("Account", selection: $selectedOption) {
             ForEach(viewModel.credentials, id: \.self) { option in

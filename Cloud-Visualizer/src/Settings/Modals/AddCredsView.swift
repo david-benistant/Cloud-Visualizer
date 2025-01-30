@@ -3,7 +3,7 @@ import SwiftUI
 struct AddCredsView: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: SettingsViewModel
-    
+
     @State private var selectedOption = "AWS"
     @State private var name: String = ""
     @State private var AWSKeyId: String = ""
@@ -24,7 +24,7 @@ struct AddCredsView: View {
                     }
                     .pickerStyle(MenuPickerStyle())
                     .padding(.bottom)
-                        
+
                     TextInput(label: "Name", disabled: false, field: $name)
 
                     Section {
@@ -52,7 +52,7 @@ struct AddCredsView: View {
                         Text("Cancel")
                     }
                     Button(action: {
-                        
+
                         let item = CredentialItem(type: selectedOption, name: name, AWSKeyId: AWSKeyId, AWSSecretAccessKey: AWSSecretAccessKey, endpoint: endpoint)
                         viewModel.addCredential(newItem: item)
                         isPresented = false
