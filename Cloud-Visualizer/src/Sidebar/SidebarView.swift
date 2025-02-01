@@ -1,5 +1,4 @@
 import SwiftUI
-
 let homeItem = SidebarItem(id: UUID(), title: "Home", destination: AnyView(HomeView()), icon: "house")
 let settingsItem = SidebarItem(id: UUID(), title: "Settings", destination: AnyView(SettingsView()), icon: "gearshape.fill")
 
@@ -64,6 +63,7 @@ struct SidebarView: View {
                             Text(settingsItem.title)
                         }
                     }
+                    
                 }
                 .frame(minHeight: 40, maxHeight: 40)
                 .onChange(of: selectedItem) {

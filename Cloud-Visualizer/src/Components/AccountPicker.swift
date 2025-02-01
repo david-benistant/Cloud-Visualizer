@@ -27,7 +27,9 @@ struct AccountPicker: View {
                 }
             }
             if selectedOption.name.isEmpty {
-                selectedOption = viewModel.credentials.first!
+                if let cred = viewModel.credentials.first {
+                    selectedOption = cred
+                }
             }
         }
         .onChange(of: selectedOption) {

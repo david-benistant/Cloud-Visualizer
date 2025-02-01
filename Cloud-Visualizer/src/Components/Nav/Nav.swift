@@ -66,7 +66,6 @@ private struct NavButton: View {
         Button(action: {
             navModel.goTo(item)
         }) {
-
             Text(item.label)
                 .frame(minHeight: 20)
                 .lineLimit(1)
@@ -88,7 +87,6 @@ struct Nav: View {
     var body: some View {
         VStack(spacing: 0) {
             if navBar {
-
                 HStack {
                     Button(action: {
                         navModel.goBack()
@@ -132,7 +130,6 @@ struct Nav: View {
                             .font(.system(size: 10))
                         NavButton(item: navModel.navItems.last!, navModel: navModel)
                     }
-
                 }
                 .padding(5)
                 .frame(minWidth: 600, maxWidth: .infinity, alignment: .leading)

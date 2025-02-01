@@ -8,7 +8,8 @@ import ClientRuntime
 import Smithy
 import SmithyHTTPAPI
 
-func AuthDynamo(credentials: CredentialItem, region: String) async -> DynamoClientWrapper? {
+func AuthDynamo(credentials: CredentialItem,
+                region: String) async -> DynamoClientWrapper? {
     do {
         let awsCredentials = AWSCredentialIdentity(
             accessKey: credentials.AWSKeyId,
@@ -45,7 +46,8 @@ func listDynamoTables(client: DynamoClientWrapper) async throws -> ListTablesOut
     }
 }
 
-func wrapDynamoTableList(_ tableList: ListTablesOutput, client: DynamoClientWrapper) async throws -> [TableLine] {
+func wrapDynamoTableList(_ tableList: ListTablesOutput,
+                         client: DynamoClientWrapper) async throws -> [TableLine] {
     var output: [TableLine] = []
 
     if let tables = tableList.tableNames {
@@ -73,9 +75,10 @@ func wrapDynamoScan(scanOutput: ScanOutput,
     var outputItems: [TableLine] = []
 
     guard let items = scanOutput.items else { return ([], []) }
-    table.attributeDefinitions?.forEach { attribute in
+    table.keySchema?.forEach { key in
+        let attribute = table.attributeDefinitions?.first(where: { $0.attributeName == key.attributeName })
         var type: FieldTypes = .string
-        switch attribute.attributeType {
+        switch attribute!.attributeType {
         case .n:
             type = .number
         case .s:
@@ -85,7 +88,7 @@ func wrapDynamoScan(scanOutput: ScanOutput,
         default:
             type = .string
         }
-        outputConfig.append((TableConfig(label: attribute.attributeName!, labelEditable: false, required: true), type))
+        outputConfig.append((TableConfig(label: attribute!.attributeName!, labelEditable: false, required: true), type))
     }
 
     items.forEach { item in

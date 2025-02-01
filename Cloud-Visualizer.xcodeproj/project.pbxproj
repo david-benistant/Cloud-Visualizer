@@ -251,7 +251,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				630EB4E42D3A8C140000070D /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
-				6378A6552D4C243300968AA3 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 63069BC92D0781F1008ABB86 /* Products */;
@@ -454,7 +453,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cloud-Visualizer/Cloud_Visualizer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Cloud-Visualizer/Preview Content\"";
 				DEVELOPMENT_TEAM = JZ669W3RJ7;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -482,11 +481,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "Cloud-Visualizer/Cloud_Visualizer.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Cloud-Visualizer/Cloud-VisualizerRelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Cloud-Visualizer/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=*]" = JZ669W3RJ7;
@@ -623,14 +622,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.1.0;
-			};
-		};
-		6378A6552D4C243300968AA3 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.58.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
