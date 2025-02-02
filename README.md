@@ -20,9 +20,8 @@ You can also edit the provider endpoint. This is useful if you are using local p
 
 | Feature       | Provider        | Progress |
 |--------------|----------------|:--------:|
-| DynamoDB     | AWS            | ✅       |
-| S3           | AWS            | 70%      |
-| SES          | AWS            | ❌       |
+| S3           | AWS            | ✅       |
+| DynamoDB     | AWS            | 70%      |
 | CloudWatch   | AWS            | ❌       |
 | API Gateway  | AWS            | ❌       |
 | Lambda       | AWS            | ❌       |
