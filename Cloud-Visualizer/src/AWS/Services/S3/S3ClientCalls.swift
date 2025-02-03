@@ -9,7 +9,7 @@ import ClientRuntime
 import Smithy
 import SmithyHTTPAPI
 
-func AuthS3(credentials: CredentialItem, region: String) async -> S3ClientWrapper? {
+func authS3(credentials: CredentialItem, region: String) async -> S3ClientWrapper? {
     do {
         let awsCredentials = AWSCredentialIdentity(
             accessKey: credentials.AWSKeyId,
@@ -36,7 +36,7 @@ func AuthS3(credentials: CredentialItem, region: String) async -> S3ClientWrappe
     }
 }
 
-func wrapBucketList(_ bucketList: ListBucketsOutput, client: S3ClientWrapper) async -> [TableLine] {
+func wrapBucketList(_ bucketList: ListBucketsOutput, client: S3ClientWrapper) async throws -> [TableLine] {
     do {
         var output: [TableLine] = []
         if let buckets = bucketList.buckets {
@@ -61,21 +61,19 @@ func wrapBucketList(_ bucketList: ListBucketsOutput, client: S3ClientWrapper) as
         }
         return output
     } catch {
-        print("Error fetching bucket region: \(error)")
+        throw S3Error(message: "An error occured while getting bucket regions", description: error.localizedDescription, client: client)
     }
-    return []
 }
 
-func listBuckets(using client: S3ClientWrapper) async -> ListBucketsOutput? {
+func listBuckets(using client: S3ClientWrapper) async throws -> ListBucketsOutput {
     do {
         let listBucketsInput = ListBucketsInput()
         let listBucketsOutput = try await client.client.listBuckets(input: listBucketsInput)
 
         return listBucketsOutput
     } catch {
-        print("Error fetching buckets: \(error)")
+        throw S3Error(message: "An error occured while listing buckets", description: error.localizedDescription, client: client)
     }
-    return nil
 }
 
 func createBucket(using client: S3ClientWrapper, name: String) async throws {
@@ -92,7 +90,6 @@ func createBucket(using client: S3ClientWrapper, name: String) async throws {
     } catch let error as BucketAlreadyExists {
         throw S3Error(message: "Bucket already exists", description: error.localizedDescription, client: client )
     } catch {
-        print("ERROR: ", dump(error, name: "Creating a bucket"))
         throw S3Error(message: "An error occurred while creating the bucket", description: error.localizedDescription, client: client )
     }
 }
@@ -101,7 +98,6 @@ func deleteBucket(using client: S3ClientWrapper, name: String) async throws {
     do {
         _ = try await client.client.deleteBucket(input: DeleteBucketInput(bucket: name))
     } catch {
-        print("ERROR: ", dump(error, name: "Deleting a bucket"))
         throw S3Error(message: "An error occurred while deleting the bucket", description: error.localizedDescription, client: client)
     }
 }
@@ -171,8 +167,7 @@ func listObjects(using client: S3ClientWrapper, bucket: S3BucketWrapper, path: S
         let listObjectOutput = try await client.client.listObjectsV2(input: input)
         return listObjectOutput
     } catch {
-        print("Error fetching bucket content: \(error)")
-        throw S3Error(message: "Error fetching bucket content", description: error.localizedDescription, client: client)
+        throw S3Error(message: "An error occured while listing bucket content", description: error.localizedDescription, client: client)
     }
 }
 
@@ -186,7 +181,6 @@ func listAllObjects(using client: S3ClientWrapper, bucket: S3BucketWrapper, path
         let listObjectOutput = try await client.client.listObjectsV2(input: input)
         return listObjectOutput
     } catch {
-        print("Error fetching bucket content: \(error)")
         throw S3Error(message: "Error fetching bucket content", description: error.localizedDescription, client: client)
     }
 }
@@ -207,8 +201,7 @@ func deleteObjects(using client: S3ClientWrapper, bucket: S3BucketWrapper, keys:
     do {
         _ = try await client.client.deleteObjects(input: input)
     } catch {
-        print("ERROR: deleteObjects:", dump(error))
-        throw error
+        throw S3Error(message: "An error occured while deleting object", description: error.localizedDescription, client: client)
     }
 }
 
@@ -239,8 +232,7 @@ func uploadFile(using client: S3ClientWrapper, bucket: S3BucketWrapper, path: St
         _ = try await client.client.putObject(input: input)
 
     } catch {
-        print("ERROR: ", dump(error, name: "Putting an object."))
-        throw error
+        throw S3Error(message: "An error occured while uploading the file: " + fileUrl.absoluteString, description: error.localizedDescription, client: client)
     }
 }
 
@@ -251,16 +243,13 @@ func getObject(using client: S3ClientWrapper, bucket: S3BucketWrapper, key: Stri
             key: key
             )
 
-        let output = try await client.client.getObject(input: input)
-
-        return output
+        return try await client.client.getObject(input: input)
     } catch {
-        print("ERROR: ", dump(error, name: "Get an object."))
-        throw error
+        throw S3Error(message: "An error occured while getting object: " + key, description: error.localizedDescription, client: client)
     }
 }
 
-func createFileInDownload(fromPath path: String) throws -> URL {
+fileprivate func createFileInDownload(fromPath path: String) throws -> URL {
     let baseURL = try FileManager.default.url(
         for: .downloadsDirectory,
         in: .userDomainMask,
@@ -297,7 +286,7 @@ func downloadObject(object: GetObjectOutput, filePath: String) async throws {
             do {
                 try data.write(to: destinationURL)
             } catch {
-                throw S3Error(message: "Error while writing file")
+                throw S3Error(message: "Error while writing file", description: error.localizedDescription)
             }
             case .stream(let stream as ReadableStream):
             while true {
@@ -309,14 +298,15 @@ func downloadObject(object: GetObjectOutput, filePath: String) async throws {
                 do {
                     try fileHandle.write(contentsOf: chunk)
                 } catch {
-                    throw S3Error(message: "Error while writing file")
+                    throw S3Error(message: "Error while writing file", description: error.localizedDescription)
                 }
             }
         default:
             throw S3Error(message: "Received data is unknown object type")
         }
-    } catch {
-        print("Error while downloading object")
+    } catch let error as S3Error {
         throw error
+    } catch {
+        throw S3Error(message: "An error occured while downloading the object", description: error.localizedDescription)
     }
 }

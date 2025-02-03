@@ -4,6 +4,7 @@ struct TextInput: View {
     let label: String
     let disabled: Bool
     @Binding var field: String
+    var foregroundColor: Color? = nil
 
     var body: some View {
         HStack {
@@ -15,6 +16,7 @@ struct TextInput: View {
                 .textFieldStyle(PlainTextFieldStyle())
                 .multilineTextAlignment(.trailing)
                 .disabled(disabled)
+                .foregroundColor(foregroundColor ?? .primary)
         }
         .padding(.vertical, 5)
     }

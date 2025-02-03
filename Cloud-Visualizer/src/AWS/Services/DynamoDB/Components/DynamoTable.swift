@@ -11,6 +11,28 @@ struct DynamoTable: View {
     @Binding var dynamoClient: DynamoClientWrapper?
     @EnvironmentObject var navModel: NavModel
     @StateObject private var tableItems: TableModel = TableModel(tableConfig: tableConfig)
+    @State private var isCreateTableOpen = false
+    @State private var isDeleteModalOpen = false
+    
+    private var sideBarItems: [TableSideBarItem] {
+        [
+            TableSideBarItem(
+                name: "Add",
+                icon: "plus",
+                action: { self.isCreateTableOpen = true }
+            ),
+            TableSideBarItem(
+                name: "Delete",
+                icon: "trash",
+                action: { self.isDeleteModalOpen = true },
+                disabled: isOneSelected()
+            ),
+        ] 
+    }
+    
+    private func isOneSelected() -> Bool {
+        return !tableItems.items.contains { $0.isSelected }
+    }
 
     private func searchFunction(item: TableLine, search: String) -> Bool {
         if let tableInfos = item.additional as? DynamoDBClientTypes.TableDescription {
@@ -37,8 +59,24 @@ struct DynamoTable: View {
         return item
     }
 
+    private func deleteItem() async {
+        guard let dynamoClient = dynamoClient else { return }
+        var remainingItems = tableItems.items
+        for (index, item) in tableItems.items.enumerated().reversed() {
+            if item.isSelected {
+                do {
+                    _ = try await deleteDynamoTable(client: dynamoClient, tableName: item.items[0].value as! String)
+                    remainingItems.remove(at: index)
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        tableItems.items = remainingItems
+    }
+
     var body: some View {
-        Table(tableModel: tableItems, searchBarFunction: searchFunction)
+        Table(tableModel: tableItems, sideBarItems: sideBarItems ,searchBarFunction: searchFunction)
             .onAppear {
                 tableItems.loadContentFunction = {_ in
                     guard let client = dynamoClient else { return }
@@ -57,6 +95,7 @@ struct DynamoTable: View {
                 }
             }
             .onChange(of: dynamoClient) {
+                tableItems.items = []
                 tableItems.reInit()
             }
             .toolbar {
@@ -67,6 +106,14 @@ struct DynamoTable: View {
                         Image(systemName: "arrow.trianglehead.clockwise")
                     }
                 }
+            }
+            .sheet(isPresented: $isCreateTableOpen) {
+                if let client = dynamoClient {
+                    DynamoCreateTable(isOpen: $isCreateTableOpen, tableItems: tableItems, dynamoClient: client)
+                }
+            }
+            .sheet(isPresented: $isDeleteModalOpen) {
+                ConfirmModal(isOpen: $isDeleteModalOpen, onConfirm: deleteItem)
             }
     }
 }
