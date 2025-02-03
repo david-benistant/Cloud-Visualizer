@@ -4,7 +4,7 @@ private struct Dynamo: View {
     @State private var dynamoClient: DynamoClientWrapper?
 
     var body: some View {
-
+        
         DynamoTable(dynamoClient: $dynamoClient)
             .toolbar {
                 ToolbarItem(placement: .automatic) {
@@ -16,13 +16,11 @@ private struct Dynamo: View {
                     dynamoClient = nil
                 }
             }
-        Section {}
-
     }
 
     func doAuth(cred: CredentialItem, region: AWSRegionItem) {
         Task {
-            if let client = await AuthDynamo(credentials: cred, region: region.region) {
+            if let client = await authDynamo(credentials: cred, region: region.region) {
                 dynamoClient = client
             }
         }

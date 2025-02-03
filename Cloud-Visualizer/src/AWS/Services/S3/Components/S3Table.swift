@@ -113,16 +113,21 @@ struct S3Table: View {
                 tableItems.loadContentFunction = { _ in
                     guard let client = s3Client else { return }
                     Task {
-                        if let bucketList = await listBuckets(using: client) {
-                            tableItems.items = (await wrapBucketList(bucketList, client: client)).map { item in
+                        do {
+                            let bucketList = try await listBuckets(using: client)
+                            tableItems.items = (try await wrapBucketList(bucketList, client: client)).map { item in
                                 return actionFunction(item, s3Client: client)
                             }
+                            
+                        } catch {
+                            print(error)
                         }
-
+                        
                     }
                 }
             }
             .onChange(of: s3Client) {
+                tableItems.items = []
                 tableItems.reInit()
             }
             .sheet(isPresented: $isCreateModalOpen) {

@@ -9,7 +9,7 @@ struct TableListViewer: View {
     @Binding var errorCount: Int
     let allowedTypes: [FieldTypes]
 
-    @State private var selectedType: FieldTypes?
+    @State private var selectedType: FieldTypes? = .string
 
     init(item: TableItem, editable: Bool, required: Bool, removeFunction: (() -> Void)? = nil, errorCount: Binding<Int>, allowedTypes: [FieldTypes]) {
         self.item = item
@@ -58,7 +58,6 @@ struct TableListViewer: View {
                 }
                 HStack {
                     Button(action: {
-                        print("plus")
                         if selectedType != nil {
                             if var fields = (item.value as? [TableItem]) {
                                 fields.append(TableItem(type: selectedType!, value: defaultFieldsValue(selectedType!)))

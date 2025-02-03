@@ -21,7 +21,7 @@ You can also edit the provider endpoint. This is useful if you are using local p
 | Feature       | Provider        | Progress |
 |--------------|----------------|:--------:|
 | S3           | AWS            | ✅       |
-| DynamoDB     | AWS            | 70%      |
+| DynamoDB     | AWS            | ✅       |
 | CloudWatch   | AWS            | ❌       |
 | API Gateway  | AWS            | ❌       |
 | Lambda       | AWS            | ❌       |

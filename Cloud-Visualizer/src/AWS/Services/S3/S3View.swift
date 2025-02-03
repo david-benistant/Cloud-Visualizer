@@ -24,7 +24,7 @@ private struct S3: View {
 
     func doAuth(cred: CredentialItem, region: AWSRegionItem) {
         Task {
-            if let client = await AuthS3(credentials: cred, region: region.region) {
+            if let client = await authS3(credentials: cred, region: region.region) {
                 s3Client = client
             }
         }
