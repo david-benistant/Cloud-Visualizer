@@ -12,10 +12,6 @@ struct TableValueEditor: View {
     @Binding var errorCount: Int
     let allowedTypes: [FieldTypes]
     var keyVerifFunction: ((String) -> Bool)?
-//    let tableConfigs: [TableConfig]? = nil
-
-//    @EnvironmentObject var tableModel: TableModel
-//    @EnvironmentObject var line: TableLine
 
     @State var textField: String = ""
     @State var error: Bool = false
@@ -267,7 +263,7 @@ struct TableLineViewer: View {
     let addNewItem: Bool = true
 
     @State private var errorMessage: String?
-    @State private var selectedType: FieldTypes?
+    @State private var selectedType: FieldTypes? = .string
 
     @State private var errorCount: Int = 0
 
@@ -330,7 +326,6 @@ struct TableLineViewer: View {
             HStack {
                 Button(action: {
                     self.isOpen = false
-                    print("cancel")
                 }) {
                     Text("Cancel")
                 }

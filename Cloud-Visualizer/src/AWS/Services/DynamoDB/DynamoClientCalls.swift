@@ -8,7 +8,7 @@ import ClientRuntime
 import Smithy
 import SmithyHTTPAPI
 
-func AuthDynamo(credentials: CredentialItem,
+func authDynamo(credentials: CredentialItem,
                 region: String) async -> DynamoClientWrapper? {
     do {
         let awsCredentials = AWSCredentialIdentity(
@@ -42,31 +42,34 @@ func listDynamoTables(client: DynamoClientWrapper) async throws -> ListTablesOut
         let output = try await client.client.listTables(input: input)
         return output
     } catch {
-        throw error
+        throw DynamoError(message: "An error occured while listing tables", description: error.localizedDescription, client: client)
     }
 }
 
 func wrapDynamoTableList(_ tableList: ListTablesOutput,
                          client: DynamoClientWrapper) async throws -> [TableLine] {
     var output: [TableLine] = []
-
-    if let tables = tableList.tableNames {
-        for table in tables {
-            let input = DescribeTableInput(tableName: table)
-            let tableInfos = try await client.client.describeTable(input: input)
-            let status = tableInfos.table?.tableStatus?.rawValue
-            let size = tableInfos.table?.tableSizeBytes
-
-            output.append(
-                TableLine(items: [
-                    TableItem(type: .string, value: table),
-                TableItem(type: .string, value: status),
-                TableItem(type: .size, value: size)
-            ],
-                      additional: tableInfos.table))
+    do {
+        if let tables = tableList.tableNames {
+            for table in tables {
+                let input = DescribeTableInput(tableName: table)
+                let tableInfos = try await client.client.describeTable(input: input)
+                let status = tableInfos.table?.tableStatus?.rawValue
+                let size = tableInfos.table?.tableSizeBytes
+                
+                output.append(
+                    TableLine(items: [
+                        TableItem(type: .string, value: table),
+                        TableItem(type: .string, value: status),
+                        TableItem(type: .size, value: size)
+                    ],
+                              additional: tableInfos.table))
+            }
         }
+        return output
+    } catch {
+        throw DynamoError(message: "An error occured while describing the table", description: error.localizedDescription, client: client)
     }
-    return output
 }
 
 func wrapDynamoScan(scanOutput: ScanOutput,
@@ -123,10 +126,9 @@ func scanDynamoTable(client: DynamoClientWrapper,
         let input = ScanInput(
             tableName: tableName
         )
-        let output = try await client.client.scan(input: input)
-        return output
+        return try await client.client.scan(input: input)
     } catch {
-        throw error
+        throw DynamoError(message: "An error occured while scanning the table", description: error.localizedDescription, client: client)
     }
 }
 
@@ -174,19 +176,86 @@ func updateDynamoItem(client: DynamoClientWrapper,
         let output = try await client.client.updateItem(input: input)
         return output
     } catch {
-        print(error)
-        throw error
+        throw DynamoError(message: "An error occured while updating item", description: error.localizedDescription, client: client)
     }
 }
 
 func createDynamoItem(client: DynamoClientWrapper,
                       table: DynamoDBClientTypes.TableDescription,
+                      key: [String: DynamoDBClientTypes.AttributeValue],
                       values: [String: DynamoDBClientTypes.AttributeValue]) async throws -> PutItemOutput {
-    return try await client.client.putItem(input: PutItemInput(item: values, tableName: table.tableName!))
+    do {
+        let item = key.merging(values) { (_, new) in new }
+        
+        var expressionAttributeNames: [String: String] = ["#PK": Array(key.keys)[0]]
+
+        if key.count > 1 {
+            expressionAttributeNames["#SK"] = Array(key.keys)[1]
+        }
+        
+        return try await client.client.putItem(input: PutItemInput(
+            conditionExpression: "attribute_not_exists(#PK)" +  (key.count > 1 ? "AND attribute_not_exists(#SK)" : ""),
+            expressionAttributeNames: expressionAttributeNames,
+            item: item,
+            tableName: table.tableName!
+        ))
+    } catch let error as AWSDynamoDB.ConditionalCheckFailedException {
+        if error.message == "The conditional request failed" {
+            throw DynamoError(message: "Item already exists")
+        }
+        throw DynamoError(message: "An error occured while creating the item: " + (error.message ?? "Unknown error"), description: error.localizedDescription, client: client)
+    } catch {
+        throw DynamoError(message: "An error occured while creating the item", description: error.localizedDescription, client: client)
+    }
 }
+
 
 func deleteDynamoItem(client: DynamoClientWrapper,
                       table: DynamoDBClientTypes.TableDescription,
                       key: [String: DynamoDBClientTypes.AttributeValue]) async throws -> DeleteItemOutput {
-    return try await client.client.deleteItem(input: DeleteItemInput(key: key, tableName: table.tableName!))
+    do {
+        return try await client.client.deleteItem(input: DeleteItemInput(key: key, tableName: table.tableName!))
+    } catch {
+        throw DynamoError(message: "An error occured while deleting item", description: error.localizedDescription, client: client)
+    }
+   
+}
+
+func createDynamoTable(client: DynamoClientWrapper,
+                       tableName: String,
+                       partitionKey: (String, DynamoDBClientTypes.ScalarAttributeType),
+                       sortKey: (String, DynamoDBClientTypes.ScalarAttributeType)?) async throws -> CreateTableOutput {
+    
+    
+    var attributeDefinitions: [DynamoDBClientTypes.AttributeDefinition] = [.init(attributeName: partitionKey.0, attributeType: partitionKey.1)]
+    var keySchema: [DynamoDBClientTypes.KeySchemaElement] = [.init(attributeName: partitionKey.0, keyType: .hash)]
+    if sortKey != nil {
+        attributeDefinitions.append(.init(attributeName: sortKey!.0, attributeType: sortKey!.1))
+        keySchema.append(.init(attributeName: sortKey!.0, keyType: .range))
+    }
+    
+    let input = CreateTableInput(
+        attributeDefinitions: attributeDefinitions,
+        billingMode: .payPerRequest,
+        keySchema: keySchema,
+        tableName: tableName
+    )
+    
+    do {
+        return try await client.client.createTable(input: input)
+    } catch let error as AWSDynamoDB.ResourceInUseException {
+        throw DynamoError(message: "Table already exists: " + tableName, description: error.localizedDescription, client: client)
+    } catch {
+        throw DynamoError(message: "An error occured while creating the table", description: error.localizedDescription, client: client)
+    }
+    
+}
+
+func deleteDynamoTable(client: DynamoClientWrapper,
+                       tableName: String) async throws -> DeleteTableOutput {
+    do {
+        return try await client.client.deleteTable(input: DeleteTableInput(tableName: tableName))
+    } catch {
+        throw DynamoError(message: "An error occured while deleting the table", description: error.localizedDescription, client: client)
+    }
 }

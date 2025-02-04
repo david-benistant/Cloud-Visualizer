@@ -234,7 +234,6 @@ struct S3Content: View {
                                         isSelectViewerOpen = true
                                         print("unable to open this file:", type)
                                     }
-                                    print()
                                 }
 
                             }

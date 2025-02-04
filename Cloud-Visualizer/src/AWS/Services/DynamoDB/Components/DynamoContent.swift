@@ -84,52 +84,69 @@ struct DynamoContent: View {
                 }
                 _ = try await updateDynamoItem(client: dynamoClient, table: table, key: key, values: values, remove: remove)
             } else {
-                var merged: [String: DynamoDBClientTypes.AttributeValue] = key
-                merged.merge(values) { (_, new) in new }
-                _ = try await createDynamoItem(client: dynamoClient, table: table, values: merged)
+                _ = try await createDynamoItem(client: dynamoClient, table: table, key: key, values: values)
                 _ = try await deleteDynamoItem(client: dynamoClient, table: table, key: oldKey)
             }
+        } catch let error as DynamoError {
+            return error.message
         } catch {
-            return "Error while updating item"
+            return "An error occured while updating item"
         }
         return nil
     }
     
     private func createLineCallback(newLine: TableLine, newTableModel: TableModel, originalLine: TableLine, originalTableModel: TableModel) async -> String? {
+        
+        var key: [String: DynamoDBClientTypes.AttributeValue] = [:]
         var values: [String: DynamoDBClientTypes.AttributeValue] = [:]
-        newTableModel.tableConfig.enumerated().forEach { index, config in
-            let valueItem = newLine.items[index]
-            if valueItem.value != nil {
-                values[config.label] = dynamoTableValueToValue(value: valueItem)
-            }
-        }
-        do {
-            _ = try await createDynamoItem(client: dynamoClient, table: table, values: values)
-            originalTableModel.items.insert(newLine, at: 0)
-        } catch {
-            return "Error while creating item"
+        
+        table.keySchema?.forEach { keySchema in
+            let valueIndex = newTableModel.tableConfig.firstIndex(where: { $0.label == keySchema.attributeName })
+            let valueItem = newLine.items[valueIndex!]
+
+            key[keySchema.attributeName!] = dynamoTableValueToValue(value: valueItem)
         }
         
+        newTableModel.tableConfig.enumerated().forEach { index, config in
+            if key[config.label] == nil {
+                let valueItem = newLine.items[index]
+                if valueItem.value != nil {
+                    values[config.label] = dynamoTableValueToValue(value: valueItem)
+                }
+            }
+        }
+
+        do {
+            _ = try await createDynamoItem(client: dynamoClient, table: table, key: key, values: values)
+            originalTableModel.items.insert(newLine, at: 0)
+        } catch let error as DynamoError {
+            return error.message
+        } catch {
+            return "An error occured while creating item"
+        }
         return nil
     }
     
     private func initDefaultLine() -> TableLine {
         let out: TableLine = TableLine()
         
-        table.attributeDefinitions?.forEach { attribute in
-            var type: FieldTypes = .string
-            switch attribute.attributeType {
-            case .n:
-                type = .number
-            case .s:
-                type = .string
-            case .b:
-                type = .binary
-            default:
-                type = .string
-                
+        table.keySchema?.forEach { key in
+            let attribute = table.attributeDefinitions?.first{ $0.attributeName == key.attributeName }
+            if let attribute = attribute {
+                var type: FieldTypes = .string
+                switch attribute.attributeType {
+                case .n:
+                    type = .number
+                case .s:
+                    type = .string
+                case .b:
+                    type = .binary
+                default:
+                    type = .string
+                    
+                }
+                out.items.append(TableItem(type: type, value: defaultFieldsValue(type)))
             }
-            out.items.append(TableItem(type: type, value: defaultFieldsValue(type)))
         }
         return out
     }
@@ -182,6 +199,15 @@ struct DynamoContent: View {
             }
             .sheet(isPresented: $isDeleteModalOpen) {
                 ConfirmModal(isOpen: $isDeleteModalOpen, onConfirm: applyDelete)
+            }
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button(action: {
+                        tableItems.reload()
+                    }) {
+                        Image(systemName: "arrow.trianglehead.clockwise")
+                    }
+                }
             }
     }
 }

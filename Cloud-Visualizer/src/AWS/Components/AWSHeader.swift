@@ -25,8 +25,8 @@ struct AWSHeader: View {
         authItem.$credential
             .combineLatest(authItem.$region)
             .sink { (credential, region) in
-                if credential.type != "None" && region.region != "None" {
-                    localCallback(credential, region)
+                if let cred = credential,  let reg = region {
+                    localCallback(cred, reg)
                 }
             }
             .store(in: &cancellables)

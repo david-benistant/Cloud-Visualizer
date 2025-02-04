@@ -22,6 +22,7 @@ struct SidebarView: View {
                         }
                     }
                 }
+                .scrollDisabled(true)
                 .searchable(text: $searchText, placement: .sidebar)
                 .listStyle(SidebarListStyle())
                 .frame(minHeight: 80, maxHeight: 80)
@@ -63,8 +64,8 @@ struct SidebarView: View {
                             Text(settingsItem.title)
                         }
                     }
-                    
                 }
+                .scrollDisabled(true)
                 .frame(minHeight: 40, maxHeight: 40)
                 .onChange(of: selectedItem) {
                     if let item = selectedItem {
@@ -73,6 +74,7 @@ struct SidebarView: View {
                 }
 
             }
+          
         } detail: {
             if let selectedItem = selectedItem {
                 selectedItem.destination
@@ -82,9 +84,7 @@ struct SidebarView: View {
         }
         .navigationSplitViewStyle(.balanced)
 
-        .navigationDestination(for: SidebarItem.self) { item in
-            item.destination
-        }
+        
     }
 }
 

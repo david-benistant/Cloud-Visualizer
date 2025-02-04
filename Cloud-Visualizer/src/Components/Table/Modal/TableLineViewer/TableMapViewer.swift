@@ -9,7 +9,7 @@ struct TableMapViewer: View {
     @Binding var errorCount: Int
     let allowedTypes: [FieldTypes]
 
-    @State private var selectedType: FieldTypes?
+    @State private var selectedType: FieldTypes? = .string
 
     init(item: TableItem, editable: Bool, required: Bool, removeFunction: (() -> Void)? = nil, errorCount: Binding<Int>, allowedTypes: [FieldTypes]) {
         self.item = item
@@ -73,7 +73,6 @@ struct TableMapViewer: View {
                 }
                 HStack {
                     Button(action: {
-                        print("plus")
                         if selectedType != nil {
                             if var fields = (item.value as? [(key: String, value: TableItem)]) {
                                 fields.append((key: "", value: TableItem(type: selectedType!, value: defaultFieldsValue(selectedType!)) ))
