@@ -11,6 +11,28 @@ struct DynamoTable: View {
     @Binding var dynamoClient: DynamoClientWrapper?
     @EnvironmentObject var navModel: NavModel
     @StateObject private var tableItems: TableModel = TableModel(tableConfig: tableConfig)
+    @State private var isCreateTableOpen = false
+    @State private var isDeleteModalOpen = false
+    
+    private var sideBarItems: [TableSideBarItem] {
+        [
+            TableSideBarItem(
+                name: "Add",
+                icon: "plus",
+                action: { self.isCreateTableOpen = true }
+            ),
+            TableSideBarItem(
+                name: "Delete",
+                icon: "trash",
+                action: { self.isDeleteModalOpen = true },
+                disabled: isOneSelected()
+            ),
+        ]
+    }
+    
+    private func isOneSelected() -> Bool {
+        return !tableItems.items.contains { $0.isSelected }
+    }
 
     private func searchFunction(item: TableLine, search: String) -> Bool {
         if let tableInfos = item.additional as? DynamoDBClientTypes.TableDescription {

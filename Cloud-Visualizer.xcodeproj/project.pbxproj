@@ -453,7 +453,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cloud-Visualizer/Cloud_Visualizer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Cloud-Visualizer/Preview Content\"";
 				DEVELOPMENT_TEAM = JZ669W3RJ7;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -485,7 +485,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Cloud-Visualizer/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=*]" = JZ669W3RJ7;
