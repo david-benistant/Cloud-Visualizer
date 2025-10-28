@@ -1,15 +1,57 @@
 import SwiftUI
+import AppKit
 import Smithy
+
+private struct SelectableTextView: NSViewRepresentable {
+    typealias NSViewType = NSScrollView
+
+    final class Coordinator: NSObject {}
+
+    func makeCoordinator() -> Coordinator { Coordinator() }
+
+    let text: String
+
+    func makeNSView(context: NSViewRepresentableContext<SelectableTextView>) -> NSScrollView {
+        let textView = NSTextView(frame: .zero)
+        textView.isEditable = false
+        textView.isSelectable = true
+        textView.font = .monospacedSystemFont(ofSize: 12, weight: .regular)
+        textView.string = text
+        textView.backgroundColor = .clear
+        textView.isVerticallyResizable = true
+        textView.isHorizontallyResizable = true
+        textView.autoresizingMask = [.width]
+        textView.textContainer?.containerSize = NSSize(width: 0, height: CGFloat.greatestFiniteMagnitude)
+        textView.textContainer?.widthTracksTextView = true
+
+        let scrollView = NSScrollView(frame: .zero)
+        scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = false
+        scrollView.drawsBackground = false
+        scrollView.borderType = .noBorder
+        scrollView.documentView = textView
+        return scrollView
+    }
+
+    func updateNSView(_ nsView: NSScrollView, context: NSViewRepresentableContext<SelectableTextView>) {
+        guard let tv = nsView.documentView as? NSTextView else { return }
+        if tv.string != text {
+            let selectedRange = tv.selectedRange()
+            tv.string = text
+            tv.setSelectedRange(selectedRange)
+        }
+    }
+}
 
 private struct TextView: View {
     @State private var text: String = ""
 
     init(textData: Data) {
-        self._text = State(initialValue: dataToString(textData))
+        _text = State(initialValue: Self.dataToString(textData))
     }
-    func dataToString(_ data: Data) -> String {
-        let encodings: [String.Encoding] = [.utf8, .ascii, .isoLatin1, .utf16, .utf32]
 
+    private static func dataToString(_ data: Data) -> String {
+        let encodings: [String.Encoding] = [.utf8, .ascii, .isoLatin1, .utf16, .utf32]
         for encoding in encodings {
             if let string = String(data: data, encoding: encoding) {
                 return string
@@ -19,12 +61,9 @@ private struct TextView: View {
     }
 
     var body: some View {
-
         VStack {
-            TextEditor(text: $text)
+            SelectableTextView(text: text)
                 .frame(minWidth: 800, minHeight: 800)
-                .font(.system(size: 12, design: .monospaced))
-                .disabled(true)
         }
     }
 }
@@ -32,21 +71,16 @@ private struct TextView: View {
 struct TextViewer {
     private let view: NSHostingView<TextView>
 
-    init (textData: Data) {
+    init(textData: Data) {
         self.view = NSHostingView(rootView: TextView(textData: textData))
     }
 
     @MainActor
     init(imageStream: ByteStream) async throws {
-        do {
-            if let data = try await imageStream.readData() {
-                self.view = NSHostingView(rootView: TextView(textData: data))
-            } else {
-                throw NSError(domain: "ImageViewer", code: 0)
-            }
-        } catch {
-            throw error
+        guard let data = try await imageStream.readData() else {
+            throw NSError(domain: "ImageViewer", code: 0)
         }
+        self.view = NSHostingView(rootView: TextView(textData: data))
     }
 
     func open(title: String) {
@@ -62,5 +96,5 @@ struct TextViewer {
         window.contentView = view
         window.makeKeyAndOrderFront(nil)
     }
-
 }
+

@@ -21,9 +21,6 @@ struct AccountPicker: View {
         }
         .id(selectedOption)
         .pickerStyle(MenuPickerStyle())
-        
-        .frame(width: 140)
-        
         .onAppear {
             if selectedOption == nil {
                 for credential in viewModel.credentials {

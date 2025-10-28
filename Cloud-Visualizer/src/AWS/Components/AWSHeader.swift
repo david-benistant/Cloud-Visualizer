@@ -13,8 +13,7 @@ struct AWSHeader: View {
             AccountPicker(selectedOption: $authItem.credential, type: "AWS")
             AWSRegionPicker(selectedOption: $authItem.region)
         }
-//        .frame(minWidth: 150, alignment: .trailing)
-//        .padding()
+        .padding([.leading, .trailing])
         .onAppear {
             observeAuthItemChanges()
         }
