@@ -2,8 +2,8 @@ import SwiftUI
 import AWSDynamoDB
 
 class DynamoClientWrapper: Equatable {
-    @Published var client: DynamoDBClient
-    @Published var region: AWSRegionItem
+    var client: DynamoDBClient
+    var region: AWSRegionItem
 
     init(client: DynamoDBClient, region: AWSRegionItem) {
         self.client = client

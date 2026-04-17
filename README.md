@@ -22,7 +22,7 @@ You can also edit the provider endpoint. This is useful if you are using local p
 |--------------|----------------|:--------:|
 | S3           | AWS            | ✅       |
 | DynamoDB     | AWS            | ✅       |
-| CloudWatch   | AWS            | ❌       |
+| CloudWatch   | AWS            | ⏳       |
 | API Gateway  | AWS            | ❌       |
 | Lambda       | AWS            | ❌       |
 | EC2          | AWS            | ❌       |
@@ -57,4 +57,3 @@ Documentation for each component should be available in the [Documentation](./Cl
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
