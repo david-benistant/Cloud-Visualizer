@@ -22,7 +22,7 @@ You can also edit the provider endpoint. This is useful if you are using local p
 |--------------|----------------|:--------:|
 | S3           | AWS            | ✅       |
 | DynamoDB     | AWS            | ✅       |
-| CloudWatch   | AWS            | ⏳       |
+| CloudWatch   | AWS            | ✅       |
 | API Gateway  | AWS            | ❌       |
 | Lambda       | AWS            | ❌       |
 | EC2          | AWS            | ❌       |
